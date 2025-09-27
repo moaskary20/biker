@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account - Terms & Conditions | Google App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #4285f4, #ea4335);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(238, 90, 36, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .warning-box h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .warning-icon {
+            font-size: 1.5rem;
+        }
+
+        .section {
+            margin-bottom: 35px;
+            padding: 25px;
+            border-radius: 15px;
+            background: rgba(248, 249, 250, 0.8);
+            border-left: 5px solid #4285f4;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h3 {
+            color: #1a73e8;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .section p, .section li {
+            color: #5f6368;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .section ul {
+            padding-left: 25px;
+        }
+
+        .section li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .section li::marker {
+            color: #4285f4;
+        }
+
+        .timeline {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa, #e8eaed);
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #e8eaed;
+        }
+
+        .timeline-step {
+            background: #4285f4;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .timeline-desc {
+            color: #5f6368;
+            font-size: 0.9rem;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #4285f4, #1a73e8);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(26, 115, 232, 0.3);
+        }
+
+        .contact-info h3 {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ea4335, #ff6b6b);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(234, 67, 53, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header, .content {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .timeline {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">G</div>
+            <h1>Account Deletion Terms</h1>
+            <p class="subtitle">Google App - Terms & Conditions for Account Deletion</p>
+        </div>
+
+        <div class="content">
+            <div class="warning-box">
+                <h3><span class="warning-icon">⚠️</span> Important Notice</h3>
+                <p>Account deletion is permanent and irreversible. Please read these terms carefully before proceeding with the deletion of your Google account.</p>
+            </div>
+
+            <div class="section">
+                <h3>1. Account Deletion Process</h3>
+                <p>When you request account deletion, the following process will be initiated:</p>
+                
+                <div class="timeline">
+                    <div class="timeline-step">1</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Immediate Effect</div>
+                        <div class="timeline-desc">Account access suspended immediately</div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-step">2</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">30-Day Grace Period</div>
+                        <div class="timeline-desc">Account recoverable within 30 days</div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-step">3</div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Permanent Deletion</div>
+                        <div class="timeline-desc">Complete data removal after 30 days</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>2. Data That Will Be Deleted</h3>
+                <p>The following data will be permanently removed from your account:</p>
+                <ul>
+                    <li>All emails, contacts, and calendar events in Gmail</li>
+                    <li>Photos and videos stored in Google Photos</li>
+                    <li>Files and documents in Google Drive</li>
+                    <li>YouTube channel, videos, and comments</li>
+                    <li>Google Play purchases and download history</li>
+                    <li>Search history and location data</li>
+                    <li>Chrome bookmarks and browsing data</li>
+                    <li>All other Google services data</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>3. Services That Will Be Affected</h3>
+                <p>Account deletion will result in loss of access to:</p>
+                <ul>
+                    <li>Gmail and Google Workspace services</li>
+                    <li>Google Drive and Google Photos</li>
+                    <li>YouTube (including subscriptions and playlists)</li>
+                    <li>Google Play Store purchases</li>
+                    <li>Google Pay and payment methods</li>
+                    <li>Android device backup and sync</li>
+                    <li>Google Assistant and Home devices</li>
+                    <li>All third-party apps using Google Sign-In</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>4. Before You Delete</h3>
+                <p>We strongly recommend the following actions before proceeding:</p>
+                <ul>
+                    <li>Download a copy of your data using Google Takeout</li>
+                    <li>Update sign-in methods for other accounts and services</li>
+                    <li>Cancel any active subscriptions or memberships</li>
+                    <li>Inform contacts of your email address change</li>
+                    <li>Transfer ownership of shared files and documents</li>
+                    <li>Save important emails and documents locally</li>
+                    <li>Update your primary email on financial and important accounts</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>5. Recovery Period</h3>
+                <p>You have a 30-day grace period to recover your account:</p>
+                <ul>
+                    <li>Account can be restored within 30 days of deletion request</li>
+                    <li>After 30 days, recovery is not possible</li>
+                    <li>Some data may be permanently deleted immediately for security reasons</li>
+                    <li>Recovery requires identity verification</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>6. Legal and Compliance</h3>
+                <p>Please note the following legal considerations:</p>
+                <ul>
+                    <li>Some data may be retained for legal compliance purposes</li>
+                    <li>Deletion may be delayed due to ongoing legal processes</li>
+                    <li>Certain business or institutional accounts may have different policies</li>
+                    <li>Data shared with others may remain accessible to those users</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>7. Alternative Options</h3>
+                <p>Consider these alternatives before permanent deletion:</p>
+                <ul>
+                    <li>Temporary account deactivation</li>
+                    <li>Deleting specific services instead of entire account</li>
+                    <li>Changing privacy settings and data collection preferences</li>
+                    <li>Using account activity controls to limit data collection</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3>8. Terms and Conditions</h3>
+                <p>By proceeding with account deletion, you acknowledge and agree that:</p>
+                <ul>
+                    <li>You understand the permanent nature of this action</li>
+                    <li>You have backed up any important data</li>
+                    <li>You will not hold Google responsible for data loss</li>
+                    <li>You understand the impact on connected services and devices</li>
+                    <li>You have read and understood all terms outlined above</li>
+                </ul>
+            </div>
+
+            <div class="contact-info">
+                <h3>Need Help?</h3>
+                <p>If you have questions about account deletion or need assistance:</p>
+                <p>📧 Email: support@google.com</p>
+                <p>📱 Phone: 1-800-GOOG-411</p>
+                <p>💬 Live Chat: Available 24/7</p>
+                <a href="#" class="btn">Contact Support</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

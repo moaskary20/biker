@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Biker App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+            position: relative;
+        }
+        
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #3498db, #2980b9);
+        }
+        
+        .section p, .section li {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+        
+        .section ul {
+            padding-left: 20px;
+        }
+        
+        .section li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .section li::before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #e8f4fd;
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .contact-info a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: opacity 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+        }
+        
+        .update-date {
+            background: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Privacy Policy</h1>
+            <p>Biker App - Caesar Agency</p>
+        </div>
+        
+        <div class="content">
+            <div class="update-date">Last Updated: September 2025</div>
+            
+            <div class="section">
+                <h2>Introduction</h2>
+                <p>At Caesar Agency, we value your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and protect the information you provide when using the Biker application.</p>
+            </div>
+            
+            <div class="section">
+                <h2>Information We Collect</h2>
+                <p>We may collect the following types of information:</p>
+                <ul>
+                    <li>Personal identification information (name, email address, phone number)</li>
+                    <li>Geographic location information (when needed to provide the service)</li>
+                    <li>Usage data and interaction with the app</li>
+                    <li>Device and browser information</li>
+                    <li>User preferences and app settings</li>
+                    <li>Payment information (when applicable)</li>
+                    <li>Communication records with our support team</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>How We Use Your Information</h2>
+                <p>We use the collected information for the following purposes:</p>
+                <ul>
+                    <li>Providing and improving app services</li>
+                    <li>Communicating with you regarding the service</li>
+                    <li>Personalizing user experience</li>
+                    <li>Ensuring app security and protection</li>
+                    <li>Complying with legal requirements</li>
+                    <li>Sending important updates about the service</li>
+                    <li>Processing payments and transactions</li>
+                    <li>Analyzing usage patterns to improve our services</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>Information Sharing</h2>
+                <p>We do not sell, rent, or share your personal information with third parties, except in the following circumstances:</p>
+                <ul>
+                    <li>When we have your explicit consent</li>
+                    <li>To provide requested services (such as payment processing)</li>
+                    <li>To comply with applicable laws and regulations</li>
+                    <li>To protect our rights and those of other users</li>
+                    <li>In case of business merger or acquisition</li>
+                    <li>With trusted service providers who assist in app operations</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>Data Security</h2>
+                <p>We implement strict security measures to protect your data:</p>
+                <ul>
+                    <li>Data encryption during transmission and storage</li>
+                    <li>Use of secure and protected servers</li>
+                    <li>Regular security system updates</li>
+                    <li>Restricted data access to authorized personnel only</li>
+                    <li>Continuous monitoring for suspicious activities</li>
+                    <li>Implementation of industry-standard security protocols</li>
+                    <li>Regular security audits and assessments</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>User Rights</h2>
+                <p>You have the following rights regarding your personal information:</p>
+                <ul>
+                    <li>Right to access your stored data</li>
+                    <li>Right to correct or update your information</li>
+                    <li>Right to delete your data (right to be forgotten)</li>
+                    <li>Right to restrict processing of your data</li>
+                    <li>Right to data portability</li>
+                    <li>Right to object to processing of your data</li>
+                    <li>Right to withdraw consent at any time</li>
+                    <li>Right to lodge a complaint with supervisory authorities</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>Cookies and Tracking Technologies</h2>
+                <p>Our app uses cookies and similar tracking technologies to enhance user experience. These technologies help us:</p>
+                <ul>
+                    <li>Remember your preferences and settings</li>
+                    <li>Analyze app usage and performance</li>
+                    <li>Provide personalized content and features</li>
+                    <li>Ensure app security and prevent fraud</li>
+                </ul>
+                <p>You can control these technologies through your browser or app settings.</p>
+            </div>
+            
+            <div class="section">
+                <h2>Third-Party Services</h2>
+                <p>Our app may integrate with third-party services such as:</p>
+                <ul>
+                    <li>Payment processors</li>
+                    <li>Analytics services</li>
+                    <li>Map and location services</li>
+                    <li>Social media platforms</li>
+                </ul>
+                <p>These services have their own privacy policies, and we encourage you to review them.</p>
+            </div>
+            
+            <div class="section">
+                <h2>Data Retention</h2>
+                <p>We retain your personal information only for as long as necessary to:</p>
+                <ul>
+                    <li>Provide our services to you</li>
+                    <li>Comply with legal obligations</li>
+                    <li>Resolve disputes and enforce agreements</li>
+                    <li>Maintain security and prevent fraud</li>
+                </ul>
+                <p>When data is no longer needed, we securely delete or anonymize it.</p>
+            </div>
+            
+            <div class="section">
+                <h2>Children's Privacy</h2>
+                <p>Our app is not intended for children under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that we have collected such information, we will take steps to delete it promptly.</p>
+            </div>
+            
+            <div class="section">
+                <h2>International Data Transfers</h2>
+                <p>Your information may be transferred to and processed in countries other than your own. We ensure that such transfers comply with applicable data protection laws and implement appropriate safeguards to protect your information.</p>
+            </div>
+            
+            <div class="section">
+                <h2>Policy Updates</h2>
+                <p>We may update this Privacy Policy from time to time. You will be notified of any significant changes via the app or email. Your continued use of the app constitutes acceptance of the updated policy.</p>
+            </div>
+            
+            <div class="highlight">
+                <strong>Important Note:</strong> This Privacy Policy applies to the Biker app only and does not cover other websites or applications you may access through links in our app.
+            </div>
+            
+            <div class="contact-info">
+                <h2>Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy, please contact us:</p>
+                <p><strong>Website:</strong> <a href="https://biker.caesar-agency.com/">biker.caesar-agency.com</a></p>
+                <p><strong>Email:</strong> <a href="mailto:support@caesar-agency.com">support@caesar-agency.com</a></p>
+                <p><strong>Address:</strong> Cairo, Arab Republic of Egypt</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2025 Caesar Agency. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
