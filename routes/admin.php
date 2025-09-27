@@ -764,5 +764,26 @@ Route::group(['namespace' => 'Admin', 'as' => 'admin.'], function () {
                 Route::get('export/{id}/{type?}', 'DeliveryManDisbursementController@export')->name('export');
             });
         });
+
+        // Blog Routes
+        Route::group(['prefix' => 'blog', 'as' => 'blog.'], function () {
+            // Categories
+            Route::resource('categories', 'BlogCategoryController');
+            Route::get('categories/{category}/toggle-status', 'BlogCategoryController@toggleStatus')->name('categories.toggle-status');
+            
+            // Posts
+            Route::resource('posts', 'BlogPostController');
+            Route::get('posts/{post}/toggle-publish', 'BlogPostController@togglePublish')->name('posts.toggle-publish');
+            Route::get('posts/{post}/toggle-featured', 'BlogPostController@toggleFeatured')->name('posts.toggle-featured');
+            
+            // Comments
+            Route::resource('comments', 'BlogCommentController');
+            Route::get('comments/{comment}/approve', 'BlogCommentController@approve')->name('comments.approve');
+            Route::get('comments/{comment}/reject', 'BlogCommentController@reject')->name('comments.reject');
+            Route::get('comments/{comment}/mark-spam', 'BlogCommentController@markAsSpam')->name('comments.mark-spam');
+            Route::post('comments/bulk-approve', 'BlogCommentController@bulkApprove')->name('comments.bulk-approve');
+            Route::post('comments/bulk-delete', 'BlogCommentController@bulkDelete')->name('comments.bulk-delete');
+            Route::get('posts/{post}/comments', 'BlogCommentController@postComments')->name('posts.comments');
+        });
     });
 });

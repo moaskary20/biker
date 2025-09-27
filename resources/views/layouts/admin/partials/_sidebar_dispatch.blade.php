@@ -53,6 +53,40 @@
                     </a>
                 </li>
                 <!-- End Dashboards -->
+
+                    <!-- Blog Management -->
+                    <li class="nav-item">
+                        <small class="nav-subtitle" title="Blog Management">Blog Management</small>
+                        <small class="tio-more-horizontal nav-subtitle-replacer"></small>
+                    </li>
+                    
+                    <li class="navbar-vertical-aside-has-menu {{ Request::is('admin/blog/categories*') ? 'active' : '' }}">
+                        <a class="js-navbar-vertical-aside-menu-link nav-link" href="{{ route('admin.blog.categories.index') }}" title="Blog Categories">
+                            <i class="tio-category nav-icon"></i>
+                            <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
+                                Blog Categories
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li class="navbar-vertical-aside-has-menu {{ Request::is('admin/blog/posts*') ? 'active' : '' }}">
+                        <a class="js-navbar-vertical-aside-menu-link nav-link" href="{{ route('admin.blog.posts.index') }}" title="Blog Posts">
+                            <i class="tio-document nav-icon"></i>
+                            <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
+                                Blog Posts
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li class="navbar-vertical-aside-has-menu {{ Request::is('admin/blog/comments*') ? 'active' : '' }}">
+                        <a class="js-navbar-vertical-aside-menu-link nav-link" href="{{ route('admin.blog.comments.index') }}" title="Blog Comments">
+                            <i class="tio-comment nav-icon"></i>
+                            <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
+                                Blog Comments
+                            </span>
+                        </a>
+                    </li>
+                    <!-- End Blog Management -->
                 <!-- Business Section-->
                 <li class="nav-item">
                     <small class="nav-subtitle" title="{{ translate('messages.dispatch_section') }}">{{ translate('messages.dispatch_management') }}</small>

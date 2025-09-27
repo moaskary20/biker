@@ -1,0 +1,67 @@
+/* Blog Admin Styles */
+.blog-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.blog-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.blog-status.published {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.blog-status.draft {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.blog-status.featured {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.blog-comment {
+    border-left: 3px solid #007bff;
+    padding-left: 15px;
+    margin-bottom: 15px;
+}
+
+.blog-comment.pending {
+    border-left-color: #ffc107;
+}
+
+.blog-comment.approved {
+    border-left-color: #28a745;
+}
+
+.blog-comment.spam {
+    border-left-color: #dc3545;
+}
+
+.blog-filter {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.blog-empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #6c757d;
+}
+
+.blog-empty-state img {
+    width: 80px;
+    opacity: 0.5;
+    margin-bottom: 20px;
+}
