@@ -90,9 +90,14 @@ class ConfigController extends Controller
 
 
         $additional_charge = isset($settings['additional_charge']) ? (float)$settings['additional_charge'] : 0;
-        $module = Cache::rememberForever("module_config", function () {
-            return Module::active()->count() == 1 ? Module::active()->first() : null;
+        $module = Cache::remember("module_config", 3600, function () {
+            $activeCount = Module::active()->count();
+            $singleModule = $activeCount == 1 ? Module::active()->first() : null;
+            \Log::info('ConfigController: Active modules count: ' . $activeCount);
+            \Log::info('ConfigController: Single module: ' . ($singleModule ? 'ID ' . $singleModule->id : 'null'));
+            return $singleModule;
         });
+        \Log::info('ConfigController: Final module: ' . ($module ? 'ID ' . $module->id : 'null'));
         $languages = Helpers::get_business_settings('language');
         $lang_array = [];
         foreach ($languages as $language) {

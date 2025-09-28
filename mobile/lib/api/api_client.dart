@@ -48,6 +48,9 @@ class ApiClient extends GetxService {
 
     if(moduleID != null || sharedPreferences.getString(AppConstants.cacheModuleId) != null) {
       header.addAll({AppConstants.moduleId: '${moduleID ?? ModuleModel.fromJson(jsonDecode(sharedPreferences.getString(AppConstants.cacheModuleId)!)).id}'});
+    } else {
+      // Default to module ID 2 for parcel functionality
+      header.addAll({AppConstants.moduleId: '2'});
     }
     header.addAll({
       'Content-Type': 'application/json; charset=UTF-8',
