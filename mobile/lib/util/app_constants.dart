@@ -10,10 +10,10 @@ class AppConstants {
   static const String fontFamily = 'Tajawal';
   static const bool payInWevView = false;
   static const int balanceInputLen = 10;
-  static const String webHostedUrl = 'http://localhost:8000';
+  static const String webHostedUrl = 'https://biker.caesar-agency.com';
   static const bool useReactWebsite = false;
 
-  static const String baseUrl = 'http://localhost:8000';
+  static const String baseUrl = 'https://biker.caesar-agency.com';
   static const String categoryUri = '/api/v1/categories';
   static const String bannerUri = '/api/v1/banners';
   static const String storeItemUri = '/api/v1/items/latest';
