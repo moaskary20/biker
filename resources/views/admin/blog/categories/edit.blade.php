@@ -58,53 +58,48 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="input-label">وصف القسم</label>
-                            <textarea name="description" class="form-control" rows="4" placeholder="وصف مختصر عن القسم">{{old('description', $category->description)}}</textarea>
+                            <label class="input-label">Category Description</label>
+                            <textarea name="description" class="form-control" rows="4" placeholder="Brief description about the category">{{old('description', $category->description)}}</textarea>
                             @error('description')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label class="input-label">صورة القسم</label>
+                            <label class="input-label">Category Image</label>
                             
-                            @if($category->image_url)
-                                <div class="mb-2">
-                                    <img src="{{$category->image_url}}" class="img-thumbnail" style="max-width: 200px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                                    <div style="display: none;">
-                                        <div class="bg-light d-flex align-items-center justify-content-center img-thumbnail" style="max-width: 200px; height: 150px;">
-                                            <i class="tio-image text-muted"></i>
-                                        </div>
-                                        <p class="text-muted small">الصورة غير متاحة</p>
-                                    </div>
-                                    <p class="text-muted small">الصورة الحالية</p>
-                                </div>
-                            @endif
+                            <div class="mb-2">
+                                <img class="img-thumbnail onerror-image" style="max-width: 200px;"
+                                    src="{{$category->image_full_url ?? asset('public/assets/admin/img/100x100/2.jpg')}}"
+                                    data-onerror-image="{{asset('public/assets/admin/img/100x100/2.jpg')}}"
+                                    alt="{{$category->name}} image">
+                                <p class="text-muted small">Current image</p>
+                            </div>
                             
                             <div class="custom-file">
                                 <input type="file" name="image" class="custom-file-input" id="imageUpload" accept="image/*">
-                                <label class="custom-file-label" for="imageUpload">اختر صورة جديدة (اختياري)</label>
+                                <label class="custom-file-label" for="imageUpload">Choose new image (optional)</label>
                             </div>
                             @error('image')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                             <div id="imagePreview" class="mt-2" style="display: none;">
                                 <img id="previewImg" src="" class="img-thumbnail" style="max-width: 200px;">
-                                <p class="text-muted small">معاينة الصورة الجديدة</p>
+                                <p class="text-muted small">New image preview</p>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="input-label">عنوان SEO</label>
-                            <input type="text" name="meta_title" class="form-control" value="{{old('meta_title', $category->meta_title)}}" placeholder="عنوان الصفحة في محركات البحث">
+                            <label class="input-label">SEO Title</label>
+                            <input type="text" name="meta_title" class="form-control" value="{{old('meta_title', $category->meta_title)}}" placeholder="Page title for search engines">
                             @error('meta_title')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label class="input-label">وصف SEO</label>
-                            <textarea name="meta_description" class="form-control" rows="3" placeholder="وصف الصفحة في محركات البحث">{{old('meta_description', $category->meta_description)}}</textarea>
+                            <label class="input-label">SEO Description</label>
+                            <textarea name="meta_description" class="form-control" rows="3" placeholder="Page description for search engines">{{old('meta_description', $category->meta_description)}}</textarea>
                             @error('meta_description')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -113,13 +108,13 @@
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" name="is_active" class="custom-control-input" id="isActive" value="1" {{old('is_active', $category->is_active) ? 'checked' : ''}}>
-                                <label class="custom-control-label" for="isActive">نشط</label>
+                                <label class="custom-control-label" for="isActive">Active</label>
                             </div>
                         </div>
 
                         <div class="btn--container justify-content-end">
                             <button type="submit" class="btn btn-primary">
-                                <i class="tio-save"></i> حفظ التغييرات
+                                <i class="tio-save"></i> Save Changes
                             </button>
                         </div>
                     </form>
@@ -130,24 +125,24 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">معلومات إضافية</h5>
+                    <h5 class="card-title">Additional Information</h5>
                 </div>
                 <div class="card-body">
                     <div class="list-group list-group-flush">
                         <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>عدد المقالات:</span>
+                            <span>Posts Count:</span>
                             <span class="badge badge-soft-info">{{$category->posts_count}}</span>
                         </div>
                         <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>تاريخ الإنشاء:</span>
+                            <span>Created Date:</span>
                             <span>{{$category->created_at->format('Y-m-d H:i')}}</span>
                         </div>
                         <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>آخر تحديث:</span>
+                            <span>Last Updated:</span>
                             <span>{{$category->updated_at->format('Y-m-d H:i')}}</span>
                         </div>
                         <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>الرابط:</span>
+                            <span>Slug:</span>
                             <small class="text-muted">{{$category->slug}}</small>
                         </div>
                     </div>
@@ -156,14 +151,14 @@
             
             <div class="card mt-3">
                 <div class="card-header">
-                    <h5 class="card-title">إجراءات سريعة</h5>
+                    <h5 class="card-title">Quick Actions</h5>
                 </div>
                 <div class="card-body">
                     <a href="{{route('admin.blog.categories.show', $category)}}" class="btn btn-outline-info btn-block mb-2">
-                        <i class="tio-visible"></i> عرض التفاصيل
+                        <i class="tio-visible"></i> View Details
                     </a>
                     <button type="button" class="btn btn-outline-danger btn-block" onclick="deleteCategory({{$category->id}})">
-                        <i class="tio-delete"></i> حذف القسم
+                        <i class="tio-delete"></i> Delete Category
                     </button>
                 </div>
             </div>
@@ -176,20 +171,20 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">تأكيد الحذف</h5>
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                هل أنت متأكد من حذف هذا القسم؟ سيتم حذف جميع المقالات المرتبطة به أيضاً.
+                Are you sure you want to delete this category? All associated posts will also be deleted.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <form id="deleteForm" method="POST" style="display: inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">حذف</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
         </div>

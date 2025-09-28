@@ -77,16 +77,10 @@
                                         <tr>
                                             <td>{{$posts->firstItem() + $key}}</td>
                                             <td>
-                                                @if($post->featured_image_url)
-                                                    <img src="{{$post->featured_image_url}}" class="blog-image" alt="{{$post->title}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="console.log('Image loaded:', this.src)">
-                                                    <div class="blog-image bg-light d-flex align-items-center justify-content-center" style="display: none;">
-                                                        <i class="tio-image"></i>
-                                                    </div>
-                                                @else
-                                                    <div class="blog-image bg-light d-flex align-items-center justify-content-center">
-                                                        <i class="tio-image"></i>
-                                                    </div>
-                                                @endif
+                                                <img class="blog-image onerror-image"
+                                                    src="{{$post->image_full_url ?? asset('public/assets/admin/img/160x160/img2.jpg')}}"
+                                                    data-onerror-image="{{asset('public/assets/admin/img/160x160/img2.jpg')}}"
+                                                    alt="{{$post->title}} image">
                                             </td>
                                             <td>
                                                 <h6 class="mb-1">{{Str::limit($post->title, 50)}}</h6>

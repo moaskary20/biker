@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\CentralLogics\Helpers;
+use Illuminate\Support\Facades\DB;
 
 class BlogPost extends Model
 {
@@ -38,6 +40,8 @@ class BlogPost extends Model
         'published_at' => 'datetime'
     ];
 
+    protected $appends = ['image_full_url'];
+
     // العلاقة مع القسم
     public function category()
     {
@@ -50,13 +54,19 @@ class BlogPost extends Model
         return $this->hasMany(BlogComment::class, 'post_id');
     }
 
+    // العلاقة مع Storage
+    public function storage()
+    {
+        return $this->morphMany(Storage::class, 'data');
+    }
+
     // العلاقة مع التعليقات المعتمدة فقط
     public function approvedComments()
     {
         return $this->hasMany(BlogComment::class, 'post_id')->where('is_approved', true);
     }
 
-    // إنشاء slug تلقائياً
+    // إنشاء slug تلقائياً وإدارة الصور
     protected static function boot()
     {
         parent::boot();
@@ -76,6 +86,22 @@ class BlogPost extends Model
             }
             if ($post->isDirty('is_published') && $post->is_published && empty($post->published_at)) {
                 $post->published_at = now();
+            }
+        });
+
+        static::saved(function ($model) {
+            if($model->isDirty('featured_image')){
+                $value = Helpers::getDisk();
+
+                DB::table('storages')->updateOrInsert([
+                    'data_type' => get_class($model),
+                    'data_id' => $model->id,
+                    'key' => 'featured_image',
+                ], [
+                    'value' => $value,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
             }
         });
     }
@@ -131,23 +157,27 @@ class BlogPost extends Model
         return null;
     }
 
-    // الحصول على رابط الصورة المميزة للعرض في الـ admin
-    public function getFeaturedImageUrlAttribute()
+    // الحصول على رابط الصورة المميزة للعرض في الـ admin (نفس طريقة المنتجات)
+    public function getImageFullUrlAttribute()
     {
         $value = $this->getRawOriginal('featured_image');
         if ($value) {
-            if (str_starts_with($value, 'http')) {
-                return $value;
+            if (count($this->storage) > 0) {
+                foreach ($this->storage as $storage) {
+                    if ($storage['key'] == 'featured_image') {
+                        return Helpers::get_full_url('blog/posts', $value, $storage['value']);
+                    }
+                }
             }
-            
-            // التحقق من وجود الملف
-            $fullPath = storage_path('app/public/' . $value);
-            if (file_exists($fullPath)) {
-                // إضافة timestamp للـ cache busting
-                $timestamp = filemtime($fullPath);
-                return url('blog-image/' . $value . '?v=' . $timestamp);
-            }
+            return Helpers::get_full_url('blog/posts', $value, 'public');
         }
         return null;
     }
+
+    // للحفاظ على التوافق مع الكود القديم
+    public function getFeaturedImageUrlAttribute()
+    {
+        return $this->image_full_url;
+    }
+
 }

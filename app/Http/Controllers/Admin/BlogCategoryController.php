@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
 use App\Helpers\ImageHelper;
+use App\CentralLogics\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -50,7 +51,7 @@ class BlogCategoryController extends Controller
         
         // رفع الصورة
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('blog/categories', 'public');
+            $data['image'] = Helpers::upload('blog/categories/', 'png', $request->file('image'));
         }
 
         BlogCategory::create($data);
@@ -107,13 +108,7 @@ class BlogCategoryController extends Controller
             }
             
             // رفع الصورة الجديدة
-            $data['image'] = $request->file('image')->store('blog/categories', 'public');
-            
-            // تحديث timestamp للصورة الجديدة
-            $fullPath = storage_path('app/public/' . $data['image']);
-            if (file_exists($fullPath)) {
-                touch($fullPath);
-            }
+            $data['image'] = Helpers::upload('blog/categories/', 'png', $request->file('image'));
         }
 
         $category->update($data);

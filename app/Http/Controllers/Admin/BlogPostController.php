@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
 use App\Models\BlogPost;
 use App\Helpers\ImageHelper;
+use App\CentralLogics\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -87,7 +88,7 @@ class BlogPostController extends Controller
 
         // رفع الصورة المميزة
         if ($request->hasFile('featured_image')) {
-            $data['featured_image'] = $request->file('featured_image')->store('blog/posts', 'public');
+            $data['featured_image'] = Helpers::upload('blog/posts/', 'png', $request->file('featured_image'));
         }
 
         // تحديد تاريخ النشر
@@ -158,13 +159,7 @@ class BlogPostController extends Controller
             }
             
             // رفع الصورة الجديدة
-            $data['featured_image'] = $request->file('featured_image')->store('blog/posts', 'public');
-            
-            // تحديث timestamp للصورة الجديدة
-            $fullPath = storage_path('app/public/' . $data['featured_image']);
-            if (file_exists($fullPath)) {
-                touch($fullPath);
-            }
+            $data['featured_image'] = Helpers::upload('blog/posts/', 'png', $request->file('featured_image'));
         }
 
         // تحديد تاريخ النشر

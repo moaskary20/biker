@@ -36,16 +36,10 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            @if($category->image_url)
-                                <img src="{{$category->image_url}}" class="img-fluid rounded" alt="{{$category->name}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <div class="bg-light d-flex align-items-center justify-content-center rounded" style="height: 200px; display: none;">
-                                    <i class="tio-image text-muted" style="font-size: 3rem;"></i>
-                                </div>
-                            @else
-                                <div class="bg-light d-flex align-items-center justify-content-center rounded" style="height: 200px;">
-                                    <i class="tio-image text-muted" style="font-size: 3rem;"></i>
-                                </div>
-                            @endif
+                            <img class="img-fluid rounded onerror-image"
+                                src="{{$category->image_full_url ?? asset('public/assets/admin/img/100x100/2.jpg')}}"
+                                data-onerror-image="{{asset('public/assets/admin/img/100x100/2.jpg')}}"
+                                alt="{{$category->name}} image">
                         </div>
                         <div class="col-md-8">
                             <table class="table table-borderless">

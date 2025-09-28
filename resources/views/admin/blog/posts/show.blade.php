@@ -49,12 +49,10 @@
                                 @endif
                             </div>
 
-                            @if($post->featured_image_url)
-                                <img src="{{$post->featured_image_url}}" class="img-fluid rounded mb-3" alt="{{$post->title}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                <div class="bg-light d-flex align-items-center justify-content-center rounded mb-3" style="height: 300px; display: none;">
-                                    <i class="tio-image text-muted" style="font-size: 3rem;"></i>
-                                </div>
-                            @endif
+                            <img class="img-fluid rounded mb-3 onerror-image"
+                                src="{{$post->image_full_url ?? asset('public/assets/admin/img/160x160/img2.jpg')}}"
+                                data-onerror-image="{{asset('public/assets/admin/img/160x160/img2.jpg')}}"
+                                alt="{{$post->title}} image">
 
                             @if($post->excerpt)
                                 <div class="alert alert-light">

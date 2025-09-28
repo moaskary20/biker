@@ -3503,6 +3503,8 @@ class Helpers
             'upload_placeholder' => asset('/public/assets/admin/img/upload-placeholder.png'),
             'payment_modules/gateway_image' => asset('/public/assets/admin/img/payment/placeholder.png'),
             'email_template' => asset('/public/assets/admin/img/blank1.png'),
+            'blog/posts' => asset('public/assets/admin/img/160x160/img2.jpg'),
+            'blog/categories' => asset('public/assets/admin/img/100x100/2.jpg'),
         ];
 
         try {

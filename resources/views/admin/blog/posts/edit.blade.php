@@ -73,18 +73,13 @@
                         <div class="form-group">
                             <label class="input-label">Featured Image</label>
                             
-                            @if($post->featured_image_url)
-                                <div class="mb-2">
-                                    <img src="{{$post->featured_image_url}}" class="img-thumbnail" style="max-width: 300px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" onload="console.log('Current image loaded:', this.src)">
-                                    <div style="display: none;">
-                                        <div class="bg-light d-flex align-items-center justify-content-center img-thumbnail" style="max-width: 300px; height: 200px;">
-                                            <i class="tio-image text-muted"></i>
-                                        </div>
-                                        <p class="text-muted small">Image not available</p>
-                                    </div>
-                                    <p class="text-muted small">Current image</p>
-                                </div>
-                            @endif
+                            <div class="mb-2">
+                                <img class="img-thumbnail onerror-image" style="max-width: 300px;"
+                                    src="{{$post->image_full_url ?? asset('public/assets/admin/img/160x160/img2.jpg')}}"
+                                    data-onerror-image="{{asset('public/assets/admin/img/160x160/img2.jpg')}}"
+                                    alt="{{$post->title}} image">
+                                <p class="text-muted small">Current image</p>
+                            </div>
                             
                             <div class="custom-file">
                                 <input type="file" name="featured_image" class="custom-file-input" id="imageUpload" accept="image/*">

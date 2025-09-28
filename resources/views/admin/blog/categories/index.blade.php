@@ -68,16 +68,10 @@
                                         <tr>
                                             <td>{{$categories->firstItem() + $key}}</td>
                                             <td>
-                                                @if($category->image_url)
-                                                    <img src="{{$category->image_url}}" class="img--40" alt="{{$category->name}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                                    <div class="img--40 bg-light d-flex align-items-center justify-content-center" style="display: none;">
-                                                        <i class="tio-image"></i>
-                                                    </div>
-                                                @else
-                                                    <div class="img--40 bg-light d-flex align-items-center justify-content-center">
-                                                        <i class="tio-image"></i>
-                                                    </div>
-                                                @endif
+                                                <img class="img--40 onerror-image"
+                                                    src="{{$category->image_full_url ?? asset('public/assets/admin/img/100x100/2.jpg')}}"
+                                                    data-onerror-image="{{asset('public/assets/admin/img/100x100/2.jpg')}}"
+                                                    alt="{{$category->name}} image">
                                             </td>
                                             <td>
                                                 <span class="d-block font-size-sm text-body">
