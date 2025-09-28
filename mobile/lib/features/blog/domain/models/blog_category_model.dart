@@ -6,6 +6,7 @@ class BlogCategoryModel {
   String? slug;
   String? description;
   String? image;
+  String? imageFullUrl;
   String? metaTitle;
   String? metaDescription;
   bool? isActive;
@@ -20,6 +21,7 @@ class BlogCategoryModel {
     this.slug,
     this.description,
     this.image,
+    this.imageFullUrl,
     this.metaTitle,
     this.metaDescription,
     this.isActive,
@@ -35,6 +37,7 @@ class BlogCategoryModel {
     slug = json['slug'];
     description = json['description'];
     image = json['image'];
+    imageFullUrl = json['image_full_url'];
     metaTitle = json['meta_title'];
     metaDescription = json['meta_description'];
     isActive = json['is_active'];
@@ -56,6 +59,7 @@ class BlogCategoryModel {
     data['slug'] = slug;
     data['description'] = description;
     data['image'] = image;
+    data['image_full_url'] = imageFullUrl;
     data['meta_title'] = metaTitle;
     data['meta_description'] = metaDescription;
     data['is_active'] = isActive;

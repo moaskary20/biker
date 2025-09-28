@@ -117,6 +117,7 @@ class BlogGridWidget extends StatelessWidget {
                             // Post Image
                             BlogImageWidget(
                               imageUrl: post.image,
+                              imageFullUrl: post.imageFullUrl,
                               width: double.infinity,
                               height: 120,
                               borderRadius: const BorderRadius.only(

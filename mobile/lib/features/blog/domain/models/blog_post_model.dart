@@ -9,6 +9,7 @@ class BlogPostModel {
   int? categoryId;
   BlogCategoryModel? category;
   String? image;
+  String? imageFullUrl;
   String? metaTitle;
   String? metaDescription;
   List<String>? tags;
@@ -30,6 +31,7 @@ class BlogPostModel {
     this.categoryId,
     this.category,
     this.image,
+    this.imageFullUrl,
     this.metaTitle,
     this.metaDescription,
     this.tags,
@@ -52,6 +54,7 @@ class BlogPostModel {
     categoryId = json['category_id'];
     category = json['category'] != null ? BlogCategoryModel.fromJson(json['category']) : null;
     image = json['featured_image'] ?? json['image'];
+    imageFullUrl = json['image_full_url'];
     metaTitle = json['meta_title'];
     metaDescription = json['meta_description'];
     tags = json['tags'] != null ? List<String>.from(json['tags']) : null;
@@ -77,6 +80,7 @@ class BlogPostModel {
       data['category'] = category!.toJson();
     }
     data['image'] = image;
+    data['image_full_url'] = imageFullUrl;
     data['meta_title'] = metaTitle;
     data['meta_description'] = metaDescription;
     data['tags'] = tags;

@@ -46,6 +46,7 @@ class BlogCategoryCard extends StatelessWidget {
             // Category Image
             BlogImageWidget(
               imageUrl: category.image,
+              imageFullUrl: category.imageFullUrl,
               width: double.infinity,
               height: 80,
               borderRadius: const BorderRadius.only(

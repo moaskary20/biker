@@ -3,6 +3,7 @@ import 'package:sixam_mart/util/dimensions.dart';
 
 class BlogImageWidget extends StatelessWidget {
   final String? imageUrl;
+  final String? imageFullUrl;
   final double? width;
   final double? height;
   final BoxFit fit;
@@ -12,6 +13,7 @@ class BlogImageWidget extends StatelessWidget {
   const BlogImageWidget({
     super.key,
     this.imageUrl,
+    this.imageFullUrl,
     this.width,
     this.height,
     this.fit = BoxFit.cover,
@@ -29,9 +31,9 @@ class BlogImageWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).disabledColor.withOpacity(0.1),
         ),
-        child: imageUrl != null && imageUrl!.isNotEmpty
+        child: (imageFullUrl != null && imageFullUrl!.isNotEmpty) || (imageUrl != null && imageUrl!.isNotEmpty)
             ? Image.network(
-                imageUrl!,
+                imageFullUrl ?? imageUrl!,
                 width: width,
                 height: height,
                 fit: fit,
