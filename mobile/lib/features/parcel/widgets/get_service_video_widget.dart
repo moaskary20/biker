@@ -19,63 +19,80 @@ class _GetServiceVideoWidgetState extends State<GetServiceVideoWidget> {
 
   @override
   void initState() {
-
+    super.initState();
+    
     String url = widget.youtubeVideoUrl;
-    if(url.isNotEmpty) {
+    if(url.isNotEmpty && url != 'null') {
+      try {
+        _controller = YoutubePlayerController(params: const YoutubePlayerParams(
+          showControls: true,
+          mute: false,
+          loop: false,
+          enableCaption: false, showVideoAnnotations: false, showFullscreenButton: false,
+        ));
 
-      _controller = YoutubePlayerController(params: const YoutubePlayerParams(
-        showControls: true,
-        mute: false,
-        loop: false,
-        enableCaption: false, showVideoAnnotations: false, showFullscreenButton: false,
-      ));
+        _controller.loadVideo(url);
 
-      _controller.loadVideo(url);
-
-      String? convertedUrl = YoutubePlayerController.convertUrlToId(url);
-
-      _controller = YoutubePlayerController.fromVideoId(
-        videoId: convertedUrl!,
-        autoPlay: false,
-      );
-    } else if(widget.fileVideoUrl.isNotEmpty){
+        String? convertedUrl = YoutubePlayerController.convertUrlToId(url);
+        if (convertedUrl != null) {
+          _controller = YoutubePlayerController.fromVideoId(
+            videoId: convertedUrl,
+            autoPlay: false,
+          );
+        }
+      } catch (e) {
+        print('YouTube video initialization error: $e');
+      }
+    } else if(widget.fileVideoUrl.isNotEmpty && widget.fileVideoUrl != 'null'){
       configureForMp4(widget.fileVideoUrl);
     }
-
-    super.initState();
   }
 
   configureForMp4(String videoUrl) {
-    _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(videoUrl))
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+    if (videoUrl.isEmpty || videoUrl == 'null' || videoUrl == '') {
+      return; // Don't initialize video player if URL is empty or null
+    }
+    
+    try {
+      _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(videoUrl))
+        ..initialize().then((_) {
+          // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+          setState(() {});
+        }).catchError((error) {
+          print('Video initialization error: $error');
+          setState(() {});
+        });
+      _videoPlayerController.play();
+      _videoPlayerController.setVolume(0);
+      Future.delayed(const Duration(seconds: 2), () {
+        _videoPlayerController.pause();
+        _videoPlayerController.setVolume(1);
         setState(() {});
       });
-    _videoPlayerController.play();
-    _videoPlayerController.setVolume(0);
-    Future.delayed(const Duration(seconds: 2), () {
-      _videoPlayerController.pause();
-      _videoPlayerController.setVolume(1);
-      setState(() {});
-    });
-
+    } catch (e) {
+      print('Video player error: $e');
+    }
   }
 
   @override
   void dispose() {
     super.dispose();
-    _videoPlayerController.dispose();
+    try {
+      _videoPlayerController.dispose();
+    } catch (e) {
+      print('Video player dispose error: $e');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return widget.youtubeVideoUrl.isNotEmpty ? ClipRRect(
+    return widget.youtubeVideoUrl.isNotEmpty && widget.youtubeVideoUrl != 'null' ? ClipRRect(
       borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
       child: YoutubePlayer(
         controller: _controller,
         backgroundColor: Colors.transparent,
       ),
-    ) : Stack(
+    ) : widget.fileVideoUrl.isNotEmpty && widget.fileVideoUrl != 'null' ? Stack(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(Dimensions.radiusSmall),
@@ -102,6 +119,6 @@ class _GetServiceVideoWidgetState extends State<GetServiceVideoWidget> {
           ),
         ) : const SizedBox(),
       ],
-    );
+    ) : const SizedBox(); // Return empty widget if no video URL
   }
 }
