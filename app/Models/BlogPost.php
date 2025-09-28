@@ -71,6 +71,11 @@ class BlogPost extends Model
     {
         parent::boot();
         
+        // إضافة global scope للـ storage مثل المنتجات
+        static::addGlobalScope('storage', function ($builder) {
+            $builder->with('storage');
+        });
+        
         static::creating(function ($post) {
             if (empty($post->slug)) {
                 $post->slug = Str::slug($post->title);
@@ -161,17 +166,14 @@ class BlogPost extends Model
     public function getImageFullUrlAttribute()
     {
         $value = $this->getRawOriginal('featured_image');
-        if ($value) {
-            if (count($this->storage) > 0) {
-                foreach ($this->storage as $storage) {
-                    if ($storage['key'] == 'featured_image') {
-                        return Helpers::get_full_url('blog/posts', $value, $storage['value']);
-                    }
+        if (count($this->storage) > 0) {
+            foreach ($this->storage as $storage) {
+                if ($storage['key'] == 'featured_image') {
+                    return Helpers::get_full_url('blog/posts', $value, $storage['value']);
                 }
             }
-            return Helpers::get_full_url('blog/posts', $value, 'public');
         }
-        return null;
+        return Helpers::get_full_url('blog/posts', $value, 'public');
     }
 
     // للحفاظ على التوافق مع الكود القديم

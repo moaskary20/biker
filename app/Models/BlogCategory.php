@@ -47,6 +47,11 @@ class BlogCategory extends Model
     {
         parent::boot();
 
+        // إضافة global scope للـ storage مثل المنتجات
+        static::addGlobalScope('storage', function ($builder) {
+            $builder->with('storage');
+        });
+
         static::creating(function ($category) {
             if (empty($category->slug)) {
                 $category->slug = Str::slug($category->name);
@@ -104,17 +109,14 @@ class BlogCategory extends Model
     public function getImageFullUrlAttribute()
     {
         $value = $this->getRawOriginal('image');
-        if ($value) {
-            if (count($this->storage) > 0) {
-                foreach ($this->storage as $storage) {
-                    if ($storage['key'] == 'image') {
-                        return Helpers::get_full_url('blog/categories', $value, $storage['value']);
-                    }
+        if (count($this->storage) > 0) {
+            foreach ($this->storage as $storage) {
+                if ($storage['key'] == 'image') {
+                    return Helpers::get_full_url('blog/categories', $value, $storage['value']);
                 }
             }
-            return Helpers::get_full_url('blog/categories', $value, 'public');
         }
-        return null;
+        return Helpers::get_full_url('blog/categories', $value, 'public');
     }
 
     // للحفاظ على التوافق مع الكود القديم
