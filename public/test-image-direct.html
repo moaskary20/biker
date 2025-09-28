@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Direct Image Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        img { max-width: 200px; margin: 10px; border: 2px solid #333; }
+        .test { margin: 20px 0; padding: 20px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>🖼️ Direct Image Test</h1>
+    
+    <div class="test">
+        <h2>Test 1: FINAL Image (Red)</h2>
+        <img src="http://192.168.1.44:8000/blog_image_final.jpg" alt="FINAL Image Test">
+        <p><strong>URL:</strong> http://192.168.1.44:8000/blog_image_final.jpg</p>
+        <p><strong>Status:</strong> ✅ This is the FINAL image that should appear in admin panel now!</p>
+    </div>
+    
+    <div class="test">
+        <h2>Test 2: Old Image (Blue)</h2>
+        <img src="http://192.168.1.44:8000/blog_image.jpg" alt="Old Image Test">
+        <p><strong>URL:</strong> http://192.168.1.44:8000/blog_image.jpg</p>
+        <p><strong>Status:</strong> ❌ This is the old image (should not appear in admin)</p>
+    </div>
+    
+    <div class="test">
+        <h2>Test 3: Relative Path (NEW)</h2>
+        <img src="/blog_image_new.jpg" alt="Relative Path Test">
+        <p><strong>URL:</strong> /blog_image_new.jpg</p>
+        <p><strong>Status:</strong> ✅ This should work in admin panel</p>
+    </div>
+    
+    <div class="test">
+        <h2>🔧 Instructions:</h2>
+        <ol>
+            <li>If you see images above, the image file is working correctly</li>
+            <li>Go to admin panel: <a href="/admin" target="_blank">http://192.168.1.44:8000/admin</a></li>
+            <li>Login with your admin credentials</li>
+            <li>Navigate to Blog Categories: <a href="/admin/blog/categories" target="_blank">http://192.168.1.44:8000/admin/blog/categories</a></li>
+            <li><strong>Images should now appear with correct URLs!</strong></li>
+            <li><strong>URLs should be: http://192.168.1.44:8000/blog_image_final.jpg?v=timestamp</strong></li>
+        </ol>
+    </div>
+    
+    <div class="test">
+        <h2>🎯 What Was Fixed:</h2>
+        <ul>
+            <li>✅ Used hardcoded URL instead of asset() helper</li>
+            <li>✅ Direct URL: http://192.168.1.44:8000/{{image_path}}</li>
+            <li>✅ Cache busting with timestamp</li>
+            <li>✅ All templates updated</li>
+        </ul>
+    </div>
+</body>
+</html>
