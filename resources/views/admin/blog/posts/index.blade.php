@@ -79,9 +79,9 @@
                                             <td>
                                                 @if($post->featured_image)
                                                     @if(str_starts_with($post->featured_image, 'http'))
-                                                        <img src="{{$post->featured_image}}?v={{time()}}" class="blog-image" alt="{{$post->title}}">
+                                                        <img src="{{$post->featured_image}}" class="blog-image" alt="{{$post->title}}">
                                                     @else
-                                                        <img src="http://192.168.1.44:8000/{{$post->featured_image}}?v={{time()}}" class="blog-image" alt="{{$post->title}}">
+                                                        <img src="http://192.168.1.44:8000/storage/{{$post->featured_image}}" class="blog-image" alt="{{$post->title}}">
                                                     @endif
                                                 @else
                                                     <div class="blog-image bg-light d-flex align-items-center justify-content-center">
