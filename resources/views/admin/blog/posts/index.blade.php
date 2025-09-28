@@ -81,7 +81,7 @@
                                                     @if(str_starts_with($post->featured_image, 'http'))
                                                         <img src="{{$post->featured_image}}" class="blog-image" alt="{{$post->title}}">
                                                     @else
-                                                        <img src="http://192.168.1.44:8000/storage/{{$post->featured_image}}" class="blog-image" alt="{{$post->title}}">
+                                                        <img src="https://biker.caesar-agency.com/storage/{{$post->featured_image}}" class="blog-image" alt="{{$post->title}}">
                                                     @endif
                                                 @else
                                                     <div class="blog-image bg-light d-flex align-items-center justify-content-center">

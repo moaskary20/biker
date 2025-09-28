@@ -67,9 +67,6 @@
 }
 
 /* Category images in index page */
-.img--40 {
-    width: 40px !important;
-    height: 40px !important;
-    object-fit: cover;
-    border-radius: 6px;
+img.img--40 {
+    width: 100%;
 }

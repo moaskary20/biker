@@ -72,7 +72,7 @@
                                                     @if(str_starts_with($category->image, 'http'))
                                                         <img src="{{$category->image}}" class="img--40" alt="{{$category->name}}">
                                                     @else
-                                                        <img src="http://192.168.1.44:8000/storage/{{$category->image}}" class="img--40" alt="{{$category->name}}">
+                                                        <img src="https://biker.caesar-agency.com/storage/{{$category->image}}" class="img--40" alt="{{$category->name}}">
                                                     @endif
                                                 @else
                                                     <div class="img--40 bg-light d-flex align-items-center justify-content-center">
