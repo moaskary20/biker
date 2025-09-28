@@ -37,6 +37,7 @@ class _ParcelCategoryScreenState extends State<ParcelCategoryScreen> {
       Get.find<ProfileController>().getUserInfo();
     }
     Get.find<BannerController>().getParcelOtherBannerList(true);
+    Get.find<ParcelController>().getParcelCategoryList();
     Get.find<ParcelController>().getWhyChooseDetails();
     Get.find<ParcelController>().getVideoContentDetails();
   }
