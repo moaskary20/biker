@@ -176,10 +176,15 @@ class ParcelController extends GetxController implements GetxService {
   }
 
   Future<void> getParcelCategoryList() async {
+    print('ParcelController: Starting getParcelCategoryList');
     List<ParcelCategoryModel>? categoryModelList = await parcelServiceInterface.getParcelCategory();
+    print('ParcelController: Received ${categoryModelList?.length ?? 0} categories');
     _parcelCategoryList = [];
     if(categoryModelList != null && categoryModelList.isNotEmpty) {
       _parcelCategoryList!.addAll(categoryModelList);
+      print('ParcelController: Added ${_parcelCategoryList!.length} categories to list');
+    } else {
+      print('ParcelController: No categories received or empty list');
     }
     update();
   }

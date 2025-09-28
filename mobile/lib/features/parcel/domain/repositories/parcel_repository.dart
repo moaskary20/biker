@@ -91,11 +91,17 @@ class ParcelRepository implements ParcelRepositoryInterface {
   }
 
   Future<List<ParcelCategoryModel>?> _getParcelCategory() async {
+    print('ParcelRepository: Starting _getParcelCategory');
     List<ParcelCategoryModel>? parcelCategoryList;
     Response response = await apiClient.getData(AppConstants.parcelCategoryUri);
+    print('ParcelRepository: API response status: ${response.statusCode}');
+    print('ParcelRepository: API response body: ${response.body}');
     if(response.statusCode == 200) {
       parcelCategoryList = [];
       response.body.forEach((parcel) => parcelCategoryList!.add(ParcelCategoryModel.fromJson(parcel)));
+      print('ParcelRepository: Parsed ${parcelCategoryList.length} categories');
+    } else {
+      print('ParcelRepository: API call failed with status ${response.statusCode}');
     }
     return parcelCategoryList;
   }
