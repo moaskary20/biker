@@ -30,6 +30,32 @@ class ParcelCategory extends Model
 
     protected $appends = ['image_full_url'];
 
+    protected static function boot()
+    {
+        parent::boot();
+        
+        // إضافة global scope للـ storage مثل المنتجات
+        static::addGlobalScope('storage', function ($builder) {
+            $builder->with('storage');
+        });
+        
+        static::saved(function ($model) {
+            if($model->isDirty('image')){
+                $value = Helpers::getDisk();
+
+                DB::table('storages')->updateOrInsert([
+                    'data_type' => get_class($model),
+                    'data_id' => $model->id,
+                    'key' => 'image',
+                ], [
+                    'value' => $value,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        });
+    }
+
     public function module()
     {
         return $this->belongsTo(Module::class);
@@ -101,25 +127,5 @@ class ParcelCategory extends Model
                 return $query->where('locale', app()->getLocale());
             }]);
         });
-    }
-    protected static function boot()
-    {
-        parent::boot();
-        static::saved(function ($model) {
-            if($model->isDirty('image')){
-                $value = Helpers::getDisk();
-
-                DB::table('storages')->updateOrInsert([
-                    'data_type' => get_class($model),
-                    'data_id' => $model->id,
-                    'key' => 'image',
-                ], [
-                    'value' => $value,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-            }
-        });
-
     }
 }
