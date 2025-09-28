@@ -100,7 +100,7 @@ class BlogCategory extends Model
             if (str_starts_with($value, 'http')) {
                 return $value;
             }
-            return asset('storage/' . $value);
+            return route('blog-image-public', ['type' => 'categories', 'filename' => $value]);
         }
         return null;
     }

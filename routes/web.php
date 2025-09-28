@@ -28,3 +28,14 @@ Route::get('/blog-image/{path}', function ($path) {
     
     return response()->json(['error' => 'Image not found'], 404);
 })->where('path', '.*')->name('blog-image');
+
+// Route for serving blog images from public directory
+Route::get('/images/blog/{type}/{filename}', function ($type, $filename) {
+    $fullPath = public_path('images/blog/' . $type . '/' . $filename);
+    
+    if (file_exists($fullPath)) {
+        return response()->file($fullPath);
+    }
+    
+    return response()->json(['error' => 'Image not found'], 404);
+})->name('blog-image-public');

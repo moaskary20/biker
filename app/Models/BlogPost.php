@@ -157,7 +157,7 @@ class BlogPost extends Model
             if (str_starts_with($value, 'http')) {
                 return $value;
             }
-            return asset('storage/' . $value);
+            return route('blog-image-public', ['type' => 'posts', 'filename' => $value]);
         }
         return null;
     }
