@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "891109656540",
+    "project_id": "biker-10e02",
+    "storage_bucket": "biker-10e02.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891109656540:android:d893ff37964a606ffd7119",
+        "android_client_info": {
+          "package_name": "com.bikerzone.www"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGDaDMWkeLrL-_dBiPs-WwKm79i0hzeos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

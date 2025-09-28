@@ -502,6 +502,13 @@ Route::group(['namespace' => 'Api\V1', 'middleware'=>'localization'], function (
         Route::get('parcel-category','ParcelCategoryController@index');
         Route::get('advertisement/list', 'AdvertisementController@get_adds');
 
+        // Blog Routes
+        Route::get('blog/categories', 'BlogCategoryController@index');
+        Route::get('blog/posts', 'BlogPostController@index');
+        Route::get('blog/posts/{id}', 'BlogPostController@show');
+        Route::get('blog/posts/{id}/comments', 'BlogCommentController@index');
+        Route::post('blog/comments', 'BlogCommentController@store');
+
     });
     Route::get('vehicle/extra_charge', 'ConfigController@extra_charge');
     Route::get('get-vehicles', 'ConfigController@get_vehicles');
