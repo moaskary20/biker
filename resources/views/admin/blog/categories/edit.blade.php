@@ -68,13 +68,15 @@
                         <div class="form-group">
                             <label class="input-label">صورة القسم</label>
                             
-                            @if($category->image)
+                            @if($category->image_url)
                                 <div class="mb-2">
-                                    @if(str_starts_with($category->image, 'http'))
-                                        <img src="{{$category->image}}" class="img-thumbnail" style="max-width: 200px;">
-                                    @else
-                                        <img src="{{asset('storage/' . $category->image)}}" class="img-thumbnail" style="max-width: 200px;">
-                                    @endif
+                                    <img src="{{$category->image_url}}" class="img-thumbnail" style="max-width: 200px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                    <div style="display: none;">
+                                        <div class="bg-light d-flex align-items-center justify-content-center img-thumbnail" style="max-width: 200px; height: 150px;">
+                                            <i class="tio-image text-muted"></i>
+                                        </div>
+                                        <p class="text-muted small">الصورة غير متاحة</p>
+                                    </div>
                                     <p class="text-muted small">الصورة الحالية</p>
                                 </div>
                             @endif

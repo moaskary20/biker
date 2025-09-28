@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sixam_mart/features/blog/domain/models/blog_post_model.dart';
+import 'package:sixam_mart/features/blog/widgets/blog_image_widget.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/styles.dart';
 import 'package:intl/intl.dart';
@@ -34,23 +35,16 @@ class BlogPostCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Post Image
-            if (post.image != null)
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(Dimensions.radiusDefault),
-                  topRight: Radius.circular(Dimensions.radiusDefault),
-                ),
-                child: Container(
-                  width: double.infinity,
-                  height: 180,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(post.image!),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+            BlogImageWidget(
+              imageUrl: post.image,
+              width: double.infinity,
+              height: 180,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(Dimensions.radiusDefault),
+                topRight: Radius.circular(Dimensions.radiusDefault),
               ),
+              isCategory: false,
+            ),
 
             Padding(
               padding: const EdgeInsets.all(Dimensions.paddingSizeDefault),

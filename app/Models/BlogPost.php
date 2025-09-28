@@ -119,18 +119,6 @@ class BlogPost extends Model
         $this->update(['comments_count' => $this->comments()->count()]);
     }
 
-    // الحصول على رابط الصورة المميزة
-    public function getFeaturedImageUrlAttribute()
-    {
-        if ($this->featured_image) {
-            if (str_starts_with($this->featured_image, 'http')) {
-                return $this->featured_image;
-            }
-            return asset('storage/' . $this->featured_image);
-        }
-        return null;
-    }
-
     // الحصول على رابط الصورة المميزة للـ API
     public function getFeaturedImageAttribute($value)
     {
@@ -139,6 +127,26 @@ class BlogPost extends Model
                 return $value;
             }
             return asset('storage/' . $value);
+        }
+        return null;
+    }
+
+    // الحصول على رابط الصورة المميزة للعرض في الـ admin
+    public function getFeaturedImageUrlAttribute()
+    {
+        $value = $this->getRawOriginal('featured_image');
+        if ($value) {
+            if (str_starts_with($value, 'http')) {
+                return $value;
+            }
+            
+            // التحقق من وجود الملف
+            $fullPath = storage_path('app/public/' . $value);
+            if (file_exists($fullPath)) {
+                // إضافة timestamp للـ cache busting
+                $timestamp = filemtime($fullPath);
+                return url('blog-image/' . $value . '?v=' . $timestamp);
+            }
         }
         return null;
     }

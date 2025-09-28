@@ -70,3 +70,17 @@
 img.img--40 {
     width: 100%;
 }
+
+/* Force image refresh */
+.blog-image, .img--40 {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Prevent image caching */
+.blog-image, .img--40 {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}

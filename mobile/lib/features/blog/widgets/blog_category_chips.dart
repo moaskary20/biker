@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sixam_mart/features/blog/domain/models/blog_category_model.dart';
+import 'package:sixam_mart/features/blog/widgets/blog_category_card.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/styles.dart';
 
@@ -18,7 +19,7 @@ class BlogCategoryChips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: 140,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: categories.length + 1, // +1 for "All" option
@@ -31,29 +32,47 @@ class BlogCategoryChips extends StatelessWidget {
               child: InkWell(
                 onTap: () => onCategorySelected(null),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: Dimensions.paddingSizeDefault,
-                    vertical: Dimensions.paddingSizeSmall,
-                  ),
+                  width: 120,
                   decoration: BoxDecoration(
                     color: isSelected 
-                        ? Theme.of(context).primaryColor 
+                        ? Theme.of(context).primaryColor.withOpacity(0.1)
                         : Theme.of(context).cardColor,
-                    borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
+                    borderRadius: BorderRadius.circular(Dimensions.radiusDefault),
                     border: Border.all(
                       color: isSelected 
                           ? Theme.of(context).primaryColor 
-                          : Theme.of(context).disabledColor.withOpacity(0.3),
+                          : Theme.of(context).disabledColor.withOpacity(0.2),
+                      width: isSelected ? 2 : 1,
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 8,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
-                  child: Text(
-                    'All',
-                    style: robotoMedium.copyWith(
-                      fontSize: Dimensions.fontSizeSmall,
-                      color: isSelected 
-                          ? Colors.white 
-                          : Theme.of(context).textTheme.bodyLarge!.color,
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.apps,
+                        size: 40,
+                        color: isSelected 
+                            ? Theme.of(context).primaryColor 
+                            : Theme.of(context).disabledColor,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'All',
+                        style: robotoMedium.copyWith(
+                          fontSize: Dimensions.fontSizeSmall,
+                          color: isSelected 
+                              ? Theme.of(context).primaryColor 
+                              : Theme.of(context).textTheme.bodyLarge!.color,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -65,34 +84,10 @@ class BlogCategoryChips extends StatelessWidget {
           
           return Padding(
             padding: const EdgeInsets.only(right: Dimensions.paddingSizeSmall),
-            child: InkWell(
+            child: BlogCategoryCard(
+              category: category,
+              isSelected: isSelected,
               onTap: () => onCategorySelected(category.id),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Dimensions.paddingSizeDefault,
-                  vertical: Dimensions.paddingSizeSmall,
-                ),
-                decoration: BoxDecoration(
-                  color: isSelected 
-                      ? Theme.of(context).primaryColor 
-                      : Theme.of(context).cardColor,
-                  borderRadius: BorderRadius.circular(Dimensions.radiusLarge),
-                  border: Border.all(
-                    color: isSelected 
-                        ? Theme.of(context).primaryColor 
-                        : Theme.of(context).disabledColor.withOpacity(0.3),
-                  ),
-                ),
-                child: Text(
-                  category.name ?? '',
-                  style: robotoMedium.copyWith(
-                    fontSize: Dimensions.fontSizeSmall,
-                    color: isSelected 
-                        ? Colors.white 
-                        : Theme.of(context).textTheme.bodyLarge!.color,
-                  ),
-                ),
-              ),
             ),
           );
         },

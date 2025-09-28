@@ -92,6 +92,7 @@ flutter:
 
   assets:
     - assets/image/
+    - assets/images/blog/
     - assets/language/
     - assets/map/
     - assets/json/

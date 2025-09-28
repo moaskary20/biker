@@ -32,7 +32,7 @@
                         @method('PUT')
                         
                         <div class="form-group">
-                            <label class="input-label">عنوان المقال <span class="text-danger">*</span></label>
+                            <label class="input-label">Post Title <span class="text-danger">*</span></label>
                             <input type="text" name="title" class="form-control" value="{{old('title', $post->title)}}" required>
                             @error('title')
                                 <div class="text-danger">{{$message}}</div>
@@ -40,9 +40,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="input-label">القسم <span class="text-danger">*</span></label>
+                            <label class="input-label">Category <span class="text-danger">*</span></label>
                             <select name="category_id" class="form-control" required>
-                                <option value="">اختر القسم</option>
+                                <option value="">Select Category</option>
                                 @foreach($categories as $category)
                                     <option value="{{$category->id}}" {{old('category_id', $post->category_id) == $category->id ? 'selected' : ''}}>
                                         {{$category->name}}
@@ -55,15 +55,15 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="input-label">مقتطف المقال</label>
-                            <textarea name="excerpt" class="form-control" rows="3" placeholder="ملخص مختصر عن المقال">{{old('excerpt', $post->excerpt)}}</textarea>
+                            <label class="input-label">Post Excerpt</label>
+                            <textarea name="excerpt" class="form-control" rows="3" placeholder="Brief summary of the post">{{old('excerpt', $post->excerpt)}}</textarea>
                             @error('excerpt')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label class="input-label">محتوى المقال <span class="text-danger">*</span></label>
+                            <label class="input-label">Post Content <span class="text-danger">*</span></label>
                             <textarea name="content" class="form-control blog-editor" rows="15" required>{{old('content', $post->content)}}</textarea>
                             @error('content')
                                 <div class="text-danger">{{$message}}</div>
@@ -71,51 +71,53 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="input-label">صورة المقال المميزة</label>
+                            <label class="input-label">Featured Image</label>
                             
-                            @if($post->featured_image)
+                            @if($post->featured_image_url)
                                 <div class="mb-2">
-                                    @if(str_starts_with($post->featured_image, 'http'))
-                                        <img src="{{$post->featured_image}}" class="img-thumbnail" style="max-width: 300px;">
-                                    @else
-                                        <img src="{{asset('storage/' . $post->featured_image)}}" class="img-thumbnail" style="max-width: 300px;">
-                                    @endif
-                                    <p class="text-muted small">الصورة الحالية</p>
+                                    <img src="{{$post->featured_image_url}}" class="img-thumbnail" style="max-width: 300px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" onload="console.log('Current image loaded:', this.src)">
+                                    <div style="display: none;">
+                                        <div class="bg-light d-flex align-items-center justify-content-center img-thumbnail" style="max-width: 300px; height: 200px;">
+                                            <i class="tio-image text-muted"></i>
+                                        </div>
+                                        <p class="text-muted small">Image not available</p>
+                                    </div>
+                                    <p class="text-muted small">Current image</p>
                                 </div>
                             @endif
                             
                             <div class="custom-file">
                                 <input type="file" name="featured_image" class="custom-file-input" id="imageUpload" accept="image/*">
-                                <label class="custom-file-label" for="imageUpload">اختر صورة جديدة (اختياري)</label>
+                                <label class="custom-file-label" for="imageUpload">Choose new image (optional)</label>
                             </div>
                             @error('featured_image')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                             <div id="imagePreview" class="mt-2" style="display: none;">
                                 <img id="previewImg" src="" class="img-thumbnail" style="max-width: 300px;">
-                                <p class="text-muted small">معاينة الصورة الجديدة</p>
+                                <p class="text-muted small">New image preview</p>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="input-label">التاغز</label>
-                            <input type="text" name="tags" class="form-control" value="{{old('tags', $post->tags ? implode(', ', $post->tags) : '')}}" placeholder="اكتب التاغز مفصولة بفواصل (tag1, tag2, tag3)">
+                            <label class="input-label">Tags</label>
+                            <input type="text" name="tags" class="form-control" value="{{old('tags', $post->tags ? implode(', ', $post->tags) : '')}}" placeholder="Enter tags separated by commas (tag1, tag2, tag3)">
                             @error('tags')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label class="input-label">عنوان SEO</label>
-                            <input type="text" name="meta_title" class="form-control" value="{{old('meta_title', $post->meta_title)}}" placeholder="عنوان الصفحة في محركات البحث">
+                            <label class="input-label">SEO Title</label>
+                            <input type="text" name="meta_title" class="form-control" value="{{old('meta_title', $post->meta_title)}}" placeholder="Page title for search engines">
                             @error('meta_title')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>
 
                         <div class="form-group">
-                            <label class="input-label">وصف SEO</label>
-                            <textarea name="meta_description" class="form-control" rows="3" placeholder="وصف الصفحة في محركات البحث">{{old('meta_description', $post->meta_description)}}</textarea>
+                            <label class="input-label">SEO Description</label>
+                            <textarea name="meta_description" class="form-control" rows="3" placeholder="Page description for search engines">{{old('meta_description', $post->meta_description)}}</textarea>
                             @error('meta_description')
                                 <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -126,7 +128,7 @@
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="is_published" class="custom-control-input" id="isPublished" value="1" {{old('is_published', $post->is_published) ? 'checked' : ''}}>
-                                        <label class="custom-control-label" for="isPublished">نشر المقال</label>
+                                        <label class="custom-control-label" for="isPublished">Publish Post</label>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +136,7 @@
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" name="is_featured" class="custom-control-input" id="isFeatured" value="1" {{old('is_featured', $post->is_featured) ? 'checked' : ''}}>
-                                        <label class="custom-control-label" for="isFeatured">مقال مميز</label>
+                                        <label class="custom-control-label" for="isFeatured">Featured Post</label>
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +144,7 @@
 
                         <div class="btn--container justify-content-end">
                             <button type="submit" class="btn btn-primary">
-                                <i class="tio-save"></i> حفظ التغييرات
+                                <i class="tio-save"></i> Save Changes
                             </button>
                         </div>
                     </form>
@@ -153,29 +155,29 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">معلومات المقال</h5>
+                    <h5 class="card-title">Post Information</h5>
                 </div>
                 <div class="card-body">
                     <div class="list-group list-group-flush">
                         <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>المشاهدات:</span>
+                            <span>Views:</span>
                             <span class="badge badge-soft-info">{{$post->views_count}}</span>
                         </div>
                         <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>التعليقات:</span>
+                            <span>Comments:</span>
                             <span class="badge badge-soft-success">{{$post->comments_count}}</span>
                         </div>
                         <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>الإعجابات:</span>
+                            <span>Likes:</span>
                             <span class="badge badge-soft-warning">{{$post->likes_count}}</span>
                         </div>
                         <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>تاريخ الإنشاء:</span>
+                            <span>Created Date:</span>
                             <span>{{$post->created_at->format('Y-m-d H:i')}}</span>
                         </div>
                         @if($post->published_at)
                         <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>تاريخ النشر:</span>
+                            <span>Published Date:</span>
                             <span>{{$post->published_at->format('Y-m-d H:i')}}</span>
                         </div>
                         @endif
@@ -185,14 +187,14 @@
             
             <div class="card mt-3">
                 <div class="card-header">
-                    <h5 class="card-title">إجراءات سريعة</h5>
+                    <h5 class="card-title">Quick Actions</h5>
                 </div>
                 <div class="card-body">
                     <a href="{{route('admin.blog.posts.show', $post)}}" class="btn btn-outline-info btn-block mb-2">
-                        <i class="tio-visible"></i> عرض المقال
+                        <i class="tio-visible"></i> View Post
                     </a>
                     <button type="button" class="btn btn-outline-danger btn-block" onclick="deletePost({{$post->id}})">
-                        <i class="tio-delete"></i> حذف المقال
+                        <i class="tio-delete"></i> Delete Post
                     </button>
                 </div>
             </div>
@@ -205,18 +207,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">تأكيد الحذف</h5>
+                <h5 class="modal-title">Confirm Delete</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                هل أنت متأكد من حذف هذا المقال؟
+                Are you sure you want to delete this post?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <form id="deleteForm" method="POST" style="display: inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">حذف</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
         </div>

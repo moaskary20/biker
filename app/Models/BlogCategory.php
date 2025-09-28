@@ -62,18 +62,6 @@ class BlogCategory extends Model
         return $this->posts()->count();
     }
 
-    // الحصول على رابط الصورة
-    public function getImageUrlAttribute()
-    {
-        if ($this->image) {
-            if (str_starts_with($this->image, 'http')) {
-                return $this->image;
-            }
-            return asset('storage/' . $this->image);
-        }
-        return null;
-    }
-
     // الحصول على رابط الصورة للـ API
     public function getImageAttribute($value)
     {
@@ -82,6 +70,26 @@ class BlogCategory extends Model
                 return $value;
             }
             return asset('storage/' . $value);
+        }
+        return null;
+    }
+
+    // الحصول على رابط الصورة للعرض في الـ admin
+    public function getImageUrlAttribute()
+    {
+        $value = $this->getRawOriginal('image');
+        if ($value) {
+            if (str_starts_with($value, 'http')) {
+                return $value;
+            }
+            
+            // التحقق من وجود الملف
+            $fullPath = storage_path('app/public/' . $value);
+            if (file_exists($fullPath)) {
+                // إضافة timestamp للـ cache busting
+                $timestamp = filemtime($fullPath);
+                return url('blog-image/' . $value . '?v=' . $timestamp);
+            }
         }
         return null;
     }

@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('title', 'عرض المقال')
+@section('title', 'View Post')
 
 @push('css_or_js')
 <link rel="stylesheet" href="{{asset('public/assets/admin/css/blog.css')}}">
@@ -14,14 +14,14 @@
             <span class="page-header-icon">
                 <i class="tio-document"></i>
             </span>
-            <span>عرض المقال: {{$post->title}}</span>
+            <span>View Post: {{$post->title}}</span>
         </h1>
         <div class="page-header-actions">
             <a href="{{route('admin.blog.posts.index')}}" class="btn btn-secondary">
-                <i class="tio-arrow-backward"></i> العودة للقائمة
+                <i class="tio-arrow-backward"></i> Back to List
             </a>
             <a href="{{route('admin.blog.posts.edit', $post)}}" class="btn btn-primary">
-                <i class="tio-edit"></i> تعديل
+                <i class="tio-edit"></i> Edit
             </a>
         </div>
     </div>
@@ -30,7 +30,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">محتوى المقال</h5>
+                    <h5 class="card-title">Post Content</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -40,26 +40,25 @@
                             <div class="blog-meta mb-3">
                                 <span class="badge badge-soft-info mr-2">{{$post->category->name}}</span>
                                 @if($post->is_published)
-                                    <span class="blog-status published">منشور</span>
+                                    <span class="blog-status published">Published</span>
                                 @else
-                                    <span class="blog-status draft">مسودة</span>
+                                    <span class="blog-status draft">Draft</span>
                                 @endif
                                 @if($post->is_featured)
-                                    <span class="blog-status featured">مميز</span>
+                                    <span class="blog-status featured">Featured</span>
                                 @endif
                             </div>
 
-                            @if($post->featured_image)
-                                @if(str_starts_with($post->featured_image, 'http'))
-                                    <img src="{{$post->featured_image}}" class="img-fluid rounded mb-3" alt="{{$post->title}}">
-                                @else
-                                    <img src="{{asset('storage/' . $post->featured_image)}}" class="img-fluid rounded mb-3" alt="{{$post->title}}">
-                                @endif
+                            @if($post->featured_image_url)
+                                <img src="{{$post->featured_image_url}}" class="img-fluid rounded mb-3" alt="{{$post->title}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="bg-light d-flex align-items-center justify-content-center rounded mb-3" style="height: 300px; display: none;">
+                                    <i class="tio-image text-muted" style="font-size: 3rem;"></i>
+                                </div>
                             @endif
 
                             @if($post->excerpt)
                                 <div class="alert alert-light">
-                                    <strong>المقتطف:</strong>
+                                    <strong>Excerpt:</strong>
                                     <p class="mb-0">{{$post->excerpt}}</p>
                                 </div>
                             @endif
@@ -70,7 +69,7 @@
 
                             @if($post->tags && count($post->tags) > 0)
                                 <div class="blog-tags mt-4">
-                                    <h6>التاغز:</h6>
+                                    <h6>Tags:</h6>
                                     @foreach($post->tags as $tag)
                                         <span class="blog-tag">{{$tag}}</span>
                                     @endforeach
@@ -80,38 +79,38 @@
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-header">
-                                    <h6 class="card-title">معلومات المقال</h6>
+                                    <h6 class="card-title">Post Information</h6>
                                 </div>
                                 <div class="card-body">
                                     <table class="table table-sm table-borderless">
                                         <tr>
-                                            <td><strong>القسم:</strong></td>
+                                            <td><strong>Category:</strong></td>
                                             <td>{{$post->category->name}}</td>
                                         </tr>
                                         <tr>
-                                            <td><strong>المشاهدات:</strong></td>
+                                            <td><strong>Views:</strong></td>
                                             <td><span class="badge badge-soft-info">{{$post->views_count}}</span></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>التعليقات:</strong></td>
+                                            <td><strong>Comments:</strong></td>
                                             <td><span class="badge badge-soft-success">{{$post->comments_count}}</span></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>الإعجابات:</strong></td>
+                                            <td><strong>Likes:</strong></td>
                                             <td><span class="badge badge-soft-warning">{{$post->likes_count}}</span></td>
                                         </tr>
                                         <tr>
-                                            <td><strong>تاريخ الإنشاء:</strong></td>
+                                            <td><strong>Created Date:</strong></td>
                                             <td>{{$post->created_at->format('Y-m-d H:i')}}</td>
                                         </tr>
                                         @if($post->published_at)
                                         <tr>
-                                            <td><strong>تاريخ النشر:</strong></td>
+                                            <td><strong>Published Date:</strong></td>
                                             <td>{{$post->published_at->format('Y-m-d H:i')}}</td>
                                         </tr>
                                         @endif
                                         <tr>
-                                            <td><strong>آخر تحديث:</strong></td>
+                                            <td><strong>Last Updated:</strong></td>
                                             <td>{{$post->updated_at->format('Y-m-d H:i')}}</td>
                                         </tr>
                                     </table>
@@ -121,14 +120,14 @@
                             @if($post->meta_title || $post->meta_description)
                                 <div class="card mt-3">
                                     <div class="card-header">
-                                        <h6 class="card-title">معلومات SEO</h6>
+                                        <h6 class="card-title">SEO Information</h6>
                                     </div>
                                     <div class="card-body">
                                         @if($post->meta_title)
-                                            <p><strong>عنوان SEO:</strong><br>{{$post->meta_title}}</p>
+                                            <p><strong>SEO Title:</strong><br>{{$post->meta_title}}</p>
                                         @endif
                                         @if($post->meta_description)
-                                            <p><strong>وصف SEO:</strong><br>{{$post->meta_description}}</p>
+                                            <p><strong>SEO Description:</strong><br>{{$post->meta_description}}</p>
                                         @endif
                                     </div>
                                 </div>
@@ -138,13 +137,13 @@
                 </div>
             </div>
 
-            <!-- تعليقات المقال -->
+            <!-- Post Comments -->
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">
-                        تعليقات المقال ({{$post->comments->count()}})
+                        Post Comments ({{$post->comments->count()}})
                         <a href="{{route('admin.blog.comments.index')}}?post_id={{$post->id}}" class="btn btn-sm btn-primary float-right">
-                            <i class="tio-comment"></i> إدارة التعليقات
+                            <i class="tio-comment"></i> Manage Comments
                         </a>
                     </h5>
                 </div>
@@ -162,9 +161,9 @@
                                         @if($comment->is_spam)
                                             <span class="badge badge-danger">Spam</span>
                                         @elseif($comment->is_approved)
-                                            <span class="badge badge-success">معتمد</span>
+                                            <span class="badge badge-success">Approved</span>
                                         @else
-                                            <span class="badge badge-warning">في الانتظار</span>
+                                            <span class="badge badge-warning">Pending</span>
                                         @endif
                                     </div>
                                 </div>
@@ -175,13 +174,13 @@
                         @if($post->comments->count() > 5)
                             <div class="text-center mt-3">
                                 <a href="{{route('admin.blog.comments.index')}}?post_id={{$post->id}}" class="btn btn-outline-primary">
-                                    عرض جميع التعليقات ({{$post->comments->count()}})
+                                    View All Comments ({{$post->comments->count()}})
                                 </a>
                             </div>
                         @endif
                     @else
                         <div class="text-center py-4">
-                            <p class="text-muted">لا توجد تعليقات على هذا المقال</p>
+                            <p class="text-muted">No comments on this post</p>
                         </div>
                     @endif
                 </div>
@@ -191,37 +190,37 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">إجراءات سريعة</h5>
+                    <h5 class="card-title">Quick Actions</h5>
                 </div>
                 <div class="card-body">
                     <a href="{{route('admin.blog.posts.edit', $post)}}" class="btn btn-outline-primary btn-block mb-2">
-                        <i class="tio-edit"></i> تعديل المقال
+                        <i class="tio-edit"></i> Edit Post
                     </a>
                     @if($post->is_published)
                         <button type="button" class="btn btn-outline-warning btn-block mb-2" onclick="togglePublish({{$post->id}})">
-                            <i class="tio-eye-off"></i> إلغاء النشر
+                            <i class="tio-eye-off"></i> Unpublish
                         </button>
                     @else
                         <button type="button" class="btn btn-outline-success btn-block mb-2" onclick="togglePublish({{$post->id}})">
-                            <i class="tio-eye"></i> نشر المقال
+                            <i class="tio-eye"></i> Publish Post
                         </button>
                     @endif
                     
                     @if($post->is_featured)
                         <button type="button" class="btn btn-outline-secondary btn-block mb-2" onclick="toggleFeatured({{$post->id}})">
-                            <i class="tio-star-off"></i> إلغاء التميز
+                            <i class="tio-star-off"></i> Remove Featured
                         </button>
                     @else
                         <button type="button" class="btn btn-outline-info btn-block mb-2" onclick="toggleFeatured({{$post->id}})">
-                            <i class="tio-star"></i> جعل مميز
+                            <i class="tio-star"></i> Make Featured
                         </button>
                     @endif
                     
                     <a href="{{route('admin.blog.comments.index')}}?post_id={{$post->id}}" class="btn btn-outline-success btn-block mb-2">
-                        <i class="tio-comment"></i> إدارة التعليقات
+                        <i class="tio-comment"></i> Manage Comments
                     </a>
                     <button type="button" class="btn btn-outline-danger btn-block" onclick="deletePost({{$post->id}})">
-                        <i class="tio-delete"></i> حذف المقال
+                        <i class="tio-delete"></i> Delete Post
                     </button>
                 </div>
             </div>
@@ -234,18 +233,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">تأكيد الحذف</h5>
+                <h5 class="modal-title">Confirm Delete</h5>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                هل أنت متأكد من حذف هذا المقال؟
+                Are you sure you want to delete this post?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <form id="deleteForm" method="POST" style="display: inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">حذف</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
         </div>

@@ -146,4 +146,13 @@ class SystemController extends Controller
         }
         return response()->json([],200);
     }
+
+    public function logout(Request $request)
+    {
+        auth('admin')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
+        return redirect('/admin');
+    }
 }

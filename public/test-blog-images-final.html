@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Images Test - Final</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-container { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        .image-container { margin: 10px 0; }
+        .test-image { max-width: 200px; max-height: 150px; border: 2px solid #007bff; margin: 10px; }
+        .error { color: red; }
+        .success { color: green; }
+        .info { color: #007bff; }
+    </style>
+</head>
+<body>
+    <h1>Blog Images Test - Final Version</h1>
+    
+    <div class="test-container">
+        <h2>Test 1: Direct Image URLs</h2>
+        <div class="image-container">
+            <h3>Post Images:</h3>
+            <img src="http://192.168.1.44:8000/blog-image/blog/posts/aBSi3brwIZltPYqPOPCBkliAxDXbdfmoJ3OF9Yo8.jpg" class="test-image" alt="Post Image 1" onload="this.nextElementSibling.innerHTML='✅ Loaded Successfully'" onerror="this.nextElementSibling.innerHTML='❌ Failed to Load'">
+            <span class="info">Loading...</span>
+            <br>
+            
+            <img src="http://192.168.1.44:8000/blog-image/blog/posts/opuqrltMTPhXhPj7iAyNtqhLjQNaNhkOZqSpnMLb.jpg" class="test-image" alt="Post Image 2" onload="this.nextElementSibling.innerHTML='✅ Loaded Successfully'" onerror="this.nextElementSibling.innerHTML='❌ Failed to Load'">
+            <span class="info">Loading...</span>
+            <br>
+            
+            <img src="http://192.168.1.44:8000/blog-image/blog/posts/Jae5oeh6m7uhIIfMgp57pSnl3BAZTmFJHDDlvtBL.jpg" class="test-image" alt="Post Image 3" onload="this.nextElementSibling.innerHTML='✅ Loaded Successfully'" onerror="this.nextElementSibling.innerHTML='❌ Failed to Load'">
+            <span class="info">Loading...</span>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Test 2: Storage URLs</h2>
+        <div class="image-container">
+            <img src="http://192.168.1.44:8000/storage/blog/posts/aBSi3brwIZltPYqPOPCBkliAxDXbdfmoJ3OF9Yo8.jpg" class="test-image" alt="Storage Image 1" onload="this.nextElementSibling.innerHTML='✅ Loaded Successfully'" onerror="this.nextElementSibling.innerHTML='❌ Failed to Load'">
+            <span class="info">Loading...</span>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Test 3: Cache Busting URLs</h2>
+        <div class="image-container">
+            <img src="http://192.168.1.44:8000/blog-image/blog/posts/aBSi3brwIZltPYqPOPCBkliAxDXbdfmoJ3OF9Yo8.jpg?v=1759034525" class="test-image" alt="Cache Busting Image" onload="this.nextElementSibling.innerHTML='✅ Loaded Successfully'" onerror="this.nextElementSibling.innerHTML='❌ Failed to Load'">
+            <span class="info">Loading...</span>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Debug Information</h2>
+        <p><strong>Server:</strong> http://192.168.1.44:8000</p>
+        <p><strong>Current Time:</strong> <span id="current-time"></span></p>
+        <p><strong>User Agent:</strong> <span id="user-agent"></span></p>
+    </div>
+    
+    <script>
+        document.getElementById('current-time').textContent = new Date().toLocaleString();
+        document.getElementById('user-agent').textContent = navigator.userAgent;
+        
+        // Auto refresh images every 5 seconds
+        setInterval(function() {
+            const images = document.querySelectorAll('.test-image');
+            images.forEach(function(img) {
+                const url = new URL(img.src);
+                url.searchParams.set('v', Date.now());
+                img.src = url.toString();
+            });
+        }, 5000);
+    </script>
+</body>
+</html>

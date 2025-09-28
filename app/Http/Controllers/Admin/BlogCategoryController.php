@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
+use App\Helpers\ImageHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -100,10 +101,19 @@ class BlogCategoryController extends Controller
         // رفع صورة جديدة
         if ($request->hasFile('image')) {
             // حذف الصورة القديمة
-            if ($category->image) {
-                Storage::disk('public')->delete($category->image);
+            $oldImage = $category->getRawOriginal('image');
+            if ($oldImage) {
+                ImageHelper::deleteImage($oldImage, 'blog/categories');
             }
+            
+            // رفع الصورة الجديدة
             $data['image'] = $request->file('image')->store('blog/categories', 'public');
+            
+            // تحديث timestamp للصورة الجديدة
+            $fullPath = storage_path('app/public/' . $data['image']);
+            if (file_exists($fullPath)) {
+                touch($fullPath);
+            }
         }
 
         $category->update($data);
@@ -118,9 +128,7 @@ class BlogCategoryController extends Controller
     public function destroy(BlogCategory $category)
     {
         // حذف الصورة
-        if ($category->image) {
-            Storage::disk('public')->delete($category->image);
-        }
+        ImageHelper::deleteImage($category->getRawOriginal('image'), 'blog/categories');
 
         $category->delete();
 

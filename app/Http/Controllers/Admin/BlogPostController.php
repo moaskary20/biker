@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BlogCategory;
 use App\Models\BlogPost;
+use App\Helpers\ImageHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -151,10 +152,19 @@ class BlogPostController extends Controller
         // رفع صورة جديدة
         if ($request->hasFile('featured_image')) {
             // حذف الصورة القديمة
-            if ($post->featured_image) {
-                Storage::disk('public')->delete($post->featured_image);
+            $oldImage = $post->getRawOriginal('featured_image');
+            if ($oldImage) {
+                ImageHelper::deleteImage($oldImage, 'blog/posts');
             }
+            
+            // رفع الصورة الجديدة
             $data['featured_image'] = $request->file('featured_image')->store('blog/posts', 'public');
+            
+            // تحديث timestamp للصورة الجديدة
+            $fullPath = storage_path('app/public/' . $data['featured_image']);
+            if (file_exists($fullPath)) {
+                touch($fullPath);
+            }
         }
 
         // تحديد تاريخ النشر
@@ -174,9 +184,7 @@ class BlogPostController extends Controller
     public function destroy(BlogPost $post)
     {
         // حذف الصورة
-        if ($post->featured_image) {
-            Storage::disk('public')->delete($post->featured_image);
-        }
+        ImageHelper::deleteImage($post->getRawOriginal('featured_image'), 'blog/posts');
 
         $post->delete();
 

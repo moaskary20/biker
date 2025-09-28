@@ -9,6 +9,9 @@ $countryCode= strtolower($country?$country->value:'auto');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <!-- Title -->
     <title>@yield('title')</title>
     <!-- Favicon -->
@@ -337,7 +340,7 @@ if(in_array(config('module.current_module_type'),config('module.module_type') ))
             cancelButtonText: `{{ translate('Do_not_Logout')}}`,
             }).then((result) => {
             if (result.value) {
-            location.href='{{route('logout')}}';
+            location.href='{{route('admin.logout')}}';
             } else{
             Swal.fire('{{ translate('messages.canceled') }}', '', 'info')
             }
@@ -962,5 +965,10 @@ $(document).on('keyup', 'input[type="tel"]', function () {
 <script>
     if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) document.write('<script src="{{asset('public/assets/admin')}}/vendor/babel-polyfill/polyfill.min.js"><\/script>');
 </script>
+
+<!-- Blog Image Refresh Script -->
+<script src="{{asset('public/assets/admin/js/blog.js')}}"></script>
+<script src="{{asset('public/assets/admin/js/blog-refresh.js')}}"></script>
+<script src="{{asset('public/assets/admin/js/blog-refresh-final.js')}}"></script>
 </body>
 </html>

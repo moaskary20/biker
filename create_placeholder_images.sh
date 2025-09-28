@@ -86,3 +86,4 @@ ls -la storage/app/public/blog/posts/ 2>/dev/null || echo "لا توجد صور 
 echo ""
 echo "✅ تم الانتهاء من إنشاء الصور الوهمية!"
 echo "Placeholder images creation completed!"
+

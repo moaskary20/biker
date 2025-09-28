@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sixam_mart/features/blog/controllers/blog_controller.dart';
 import 'package:sixam_mart/features/blog/domain/models/blog_post_model.dart';
 import 'package:sixam_mart/features/blog/screens/blog_list_screen.dart';
+import 'package:sixam_mart/features/blog/widgets/blog_image_widget.dart';
 import 'package:sixam_mart/util/dimensions.dart';
 import 'package:sixam_mart/util/styles.dart';
 import 'package:html/parser.dart' as html_parser;
@@ -114,35 +115,15 @@ class BlogGridWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // Post Image
-                            ClipRRect(
+                            BlogImageWidget(
+                              imageUrl: post.image,
+                              width: double.infinity,
+                              height: 120,
                               borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(Dimensions.radiusDefault),
                                 topRight: Radius.circular(Dimensions.radiusDefault),
                               ),
-                              child: Container(
-                                width: double.infinity,
-                                height: 120,
-                                decoration: BoxDecoration(
-                                  image: post.image != null
-                                      ? DecorationImage(
-                                          image: NetworkImage(post.image!),
-                                          fit: BoxFit.cover,
-                                        )
-                                      : null,
-                                  color: post.image == null
-                                      ? Theme.of(context).disabledColor.withOpacity(0.1)
-                                      : null,
-                                ),
-                                child: post.image == null
-                                    ? Center(
-                                        child: Icon(
-                                          Icons.article,
-                                          size: 40,
-                                          color: Theme.of(context).disabledColor,
-                                        ),
-                                      )
-                                    : null,
-                              ),
+                              isCategory: false,
                             ),
 
                             // Post Content
