@@ -499,7 +499,7 @@ Route::group(['namespace' => 'Api\V1', 'middleware'=>'localization'], function (
             Route::get('getCashback', 'CashBackController@getCashback');
         });
 
-        Route::get('parcel-category','ParcelCategoryController@index');
+        Route::get('parcel-category','ParcelCategoryController@index')->middleware('module-check');
         Route::get('advertisement/list', 'AdvertisementController@get_adds');
 
         // Blog Routes

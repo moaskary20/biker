@@ -13,6 +13,16 @@ class ParcelCategory extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'image',
+        'status',
+        'module_id',
+        'parcel_per_km_shipping_charge',
+        'parcel_minimum_shipping_charge'
+    ];
+
     protected $casts = [
         'parcel_per_km_shipping_charge'=>'float',
         'parcel_minimum_shipping_charge'=>'float',
