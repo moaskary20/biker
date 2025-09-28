@@ -118,4 +118,28 @@ class BlogPost extends Model
     {
         $this->update(['comments_count' => $this->comments()->count()]);
     }
+
+    // الحصول على رابط الصورة المميزة
+    public function getFeaturedImageUrlAttribute()
+    {
+        if ($this->featured_image) {
+            if (str_starts_with($this->featured_image, 'http')) {
+                return $this->featured_image;
+            }
+            return asset('storage/' . $this->featured_image);
+        }
+        return null;
+    }
+
+    // الحصول على رابط الصورة المميزة للـ API
+    public function getFeaturedImageAttribute($value)
+    {
+        if ($value) {
+            if (str_starts_with($value, 'http')) {
+                return $value;
+            }
+            return asset('storage/' . $value);
+        }
+        return null;
+    }
 }

@@ -61,4 +61,28 @@ class BlogCategory extends Model
     {
         return $this->posts()->count();
     }
+
+    // الحصول على رابط الصورة
+    public function getImageUrlAttribute()
+    {
+        if ($this->image) {
+            if (str_starts_with($this->image, 'http')) {
+                return $this->image;
+            }
+            return asset('storage/' . $this->image);
+        }
+        return null;
+    }
+
+    // الحصول على رابط الصورة للـ API
+    public function getImageAttribute($value)
+    {
+        if ($value) {
+            if (str_starts_with($value, 'http')) {
+                return $value;
+            }
+            return asset('storage/' . $value);
+        }
+        return null;
+    }
 }
