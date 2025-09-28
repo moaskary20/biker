@@ -50,7 +50,11 @@
                             </div>
 
                             @if($post->featured_image)
-                                <img src="{{asset('storage/' . $post->featured_image)}}" class="img-fluid rounded mb-3" alt="{{$post->title}}">
+                                @if(str_starts_with($post->featured_image, 'http'))
+                                    <img src="{{$post->featured_image}}" class="img-fluid rounded mb-3" alt="{{$post->title}}">
+                                @else
+                                    <img src="{{asset('storage/' . $post->featured_image)}}" class="img-fluid rounded mb-3" alt="{{$post->title}}">
+                                @endif
                             @endif
 
                             @if($post->excerpt)

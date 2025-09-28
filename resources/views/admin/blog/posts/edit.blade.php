@@ -75,7 +75,11 @@
                             
                             @if($post->featured_image)
                                 <div class="mb-2">
-                                    <img src="{{asset('storage/' . $post->featured_image)}}" class="img-thumbnail" style="max-width: 300px;">
+                                    @if(str_starts_with($post->featured_image, 'http'))
+                                        <img src="{{$post->featured_image}}" class="img-thumbnail" style="max-width: 300px;">
+                                    @else
+                                        <img src="{{asset('storage/' . $post->featured_image)}}" class="img-thumbnail" style="max-width: 300px;">
+                                    @endif
                                     <p class="text-muted small">الصورة الحالية</p>
                                 </div>
                             @endif

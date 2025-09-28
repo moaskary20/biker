@@ -70,7 +70,11 @@
                             
                             @if($category->image)
                                 <div class="mb-2">
-                                    <img src="{{asset('storage/' . $category->image)}}" class="img-thumbnail" style="max-width: 200px;">
+                                    @if(str_starts_with($category->image, 'http'))
+                                        <img src="{{$category->image}}" class="img-thumbnail" style="max-width: 200px;">
+                                    @else
+                                        <img src="{{asset('storage/' . $category->image)}}" class="img-thumbnail" style="max-width: 200px;">
+                                    @endif
                                     <p class="text-muted small">الصورة الحالية</p>
                                 </div>
                             @endif

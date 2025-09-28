@@ -78,7 +78,11 @@
                                             <td>{{$posts->firstItem() + $key}}</td>
                                             <td>
                                                 @if($post->featured_image)
-                                                    <img src="{{asset('storage/' . $post->featured_image)}}" class="blog-image" alt="{{$post->title}}">
+                                                    @if(str_starts_with($post->featured_image, 'http'))
+                                                        <img src="{{$post->featured_image}}" class="blog-image" alt="{{$post->title}}">
+                                                    @else
+                                                        <img src="{{asset('storage/' . $post->featured_image)}}" class="blog-image" alt="{{$post->title}}">
+                                                    @endif
                                                 @else
                                                     <div class="blog-image bg-light d-flex align-items-center justify-content-center">
                                                         <i class="tio-image"></i>
