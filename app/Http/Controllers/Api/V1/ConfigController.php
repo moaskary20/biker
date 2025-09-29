@@ -100,6 +100,11 @@ class ConfigController extends Controller
         });
         \Log::info('ConfigController: Final module: ' . ($module ? 'ID ' . $module->id : 'null'));
         \Log::info('ConfigController: Module data: ' . json_encode($module));
+        
+        // Set the current module data in config
+        if ($module) {
+            config(['module.current_module_data' => $module->toArray()]);
+        }
         $languages = Helpers::get_business_settings('language');
         $lang_array = [];
         foreach ($languages as $language) {

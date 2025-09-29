@@ -33,11 +33,15 @@ class StoreLogic
                 return  $query->active();
             })
             ->Active();
-        if(config('module.current_module_data')) {
-            $query = $query->whereHas('zone.modules', function($query){
-                return  $query->where('modules.id', config('module.current_module_data')['id']);
-            })->module(config('module.current_module_data')['id'])
-                ->when(!config('module.current_module_data')['all_zone_service'], function($query)use($zone_id){
+        // Get module from request header or default to module 2
+        $module_id = request()->header('moduleId', 2);
+        $module = \App\Models\Module::find($module_id);
+        
+        if($module) {
+            $query = $query->whereHas('zone.modules', function($query) use ($module_id){
+                return  $query->where('modules.id', $module_id);
+            })->module($module_id)
+                ->when(!$module->all_zone_service, function($query)use($zone_id){
                     return  $query->whereIn('zone_id', json_decode($zone_id,true));
                 });
         } else {

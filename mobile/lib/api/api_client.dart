@@ -57,9 +57,13 @@ class ApiClient extends GetxService {
     if (setHeader) {
       header[AppConstants.moduleId] = '2';
     }
+    
+    // Ensure zoneId is always set to [1] if not provided
+    List<int> finalZoneIds = zoneIDs ?? [1];
+    
     header.addAll({
       'Content-Type': 'application/json; charset=UTF-8',
-      AppConstants.zoneId: zoneIDs != null ? jsonEncode(zoneIDs) : '',
+      AppConstants.zoneId: jsonEncode(finalZoneIds),
       ///this will add in ride module
       // AppConstants.operationAreaId: operationIds != null ? jsonEncode(operationIds) : '',
       AppConstants.localizationKey: languageCode ?? AppConstants.languages[0].languageCode!,
