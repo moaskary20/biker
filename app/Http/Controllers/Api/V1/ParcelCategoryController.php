@@ -12,15 +12,22 @@ class ParcelCategoryController extends Controller
     public function index(Request $request){
         try {
             \Log::info('ParcelCategoryController: Starting index method');
-            $parcel_categories = ParcelCategory::
-            when(config('module.current_module_data'), function($query){
-                $query->module(config('module.current_module_data')['id']);
-            })
-            ->active()->get();
+            \Log::info('ParcelCategoryController: Module config: ' . json_encode(config('module.current_module_data')));
+            
+            $query = ParcelCategory::query();
+            
+            if(config('module.current_module_data')) {
+                $query->where('module_id', config('module.current_module_data')['id']);
+                \Log::info('ParcelCategoryController: Filtering by module_id: ' . config('module.current_module_data')['id']);
+            } else {
+                \Log::info('ParcelCategoryController: No module config, getting all categories');
+            }
+            
+            $parcel_categories = $query->where('status', 1)->get();
             \Log::info('ParcelCategoryController: Found ' . $parcel_categories->count() . ' categories');
             
             foreach($parcel_categories as $category) {
-                \Log::info('Category ' . $category->id . ': ' . $category->name . ' - Image Full URL: ' . $category->image_full_url);
+                \Log::info('Category ' . $category->id . ': ' . $category->name . ' - Module ID: ' . $category->module_id);
             }
             
             $parcel_categories=Helpers::parcel_category_data_formatting($parcel_categories, true);

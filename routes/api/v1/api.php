@@ -500,6 +500,7 @@ Route::group(['namespace' => 'Api\V1', 'middleware'=>'localization'], function (
         });
 
         Route::get('parcel-category','ParcelCategoryController@index')->middleware('module-check');
+        Route::get('parcel-subcategory/{categoryId?}','ParcelSubcategoryController@index')->middleware('module-check');
         Route::get('advertisement/list', 'AdvertisementController@get_adds');
 
         // Blog Routes

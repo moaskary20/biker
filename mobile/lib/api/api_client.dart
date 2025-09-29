@@ -54,7 +54,7 @@ class ApiClient extends GetxService {
     }
     
     // Force module ID 2 for parcel-related API calls
-    if (setHeader && (header[AppConstants.moduleId] == '1' || header[AppConstants.moduleId] == null)) {
+    if (setHeader) {
       header[AppConstants.moduleId] = '2';
     }
     header.addAll({

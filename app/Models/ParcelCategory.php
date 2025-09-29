@@ -117,4 +117,9 @@ class ParcelCategory extends Model
     {
         return $this->morphMany(Storage::class, 'data');
     }
+
+    public function subcategories()
+    {
+        return $this->hasMany(ParcelSubcategory::class, 'parcel_category_id');
+    }
 }
