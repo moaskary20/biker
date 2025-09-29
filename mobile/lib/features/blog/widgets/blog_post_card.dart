@@ -36,7 +36,7 @@ class BlogPostCard extends StatelessWidget {
           children: [
             // Post Image
             BlogImageWidget(
-              imageUrl: post.image,
+              imageUrl: post.imageFullUrl ?? post.image,
               imageFullUrl: post.imageFullUrl,
               width: double.infinity,
               height: 180,

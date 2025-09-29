@@ -31,9 +31,9 @@ class BlogImageWidget extends StatelessWidget {
         decoration: BoxDecoration(
           color: Theme.of(context).disabledColor.withOpacity(0.1),
         ),
-        child: (imageFullUrl != null && imageFullUrl!.isNotEmpty) || (imageUrl != null && imageUrl!.isNotEmpty)
+        child: (imageUrl != null && imageUrl!.isNotEmpty)
             ? Image.network(
-                imageFullUrl ?? imageUrl!,
+                imageUrl!,
                 width: width,
                 height: height,
                 fit: fit,

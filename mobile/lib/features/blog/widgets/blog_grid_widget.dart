@@ -115,17 +115,17 @@ class BlogGridWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // Post Image
-                            BlogImageWidget(
-                              imageUrl: post.image,
-                              imageFullUrl: post.imageFullUrl,
-                              width: double.infinity,
-                              height: 120,
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(Dimensions.radiusDefault),
-                                topRight: Radius.circular(Dimensions.radiusDefault),
-                              ),
-                              isCategory: false,
-                            ),
+            BlogImageWidget(
+              imageUrl: post.imageFullUrl ?? post.image,
+              imageFullUrl: post.imageFullUrl,
+              width: double.infinity,
+              height: 120,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(Dimensions.radiusDefault),
+                topRight: Radius.circular(Dimensions.radiusDefault),
+              ),
+              isCategory: false,
+            ),
 
                             // Post Content
                             Expanded(
