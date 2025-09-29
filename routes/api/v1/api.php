@@ -321,6 +321,27 @@ Route::group(['namespace' => 'Api\V1', 'middleware'=>'localization'], function (
     Route::get('customer/order/parcel-instructions', 'OrderController@parcel_instructions');
     Route::get('most-tips', 'OrderController@most_tips');
     Route::get('stores/details/{id}', 'StoreController@get_details');
+    
+    // Test routes without middleware
+    Route::get('test/stores', function () {
+        $stores = App\Models\Store::where('module_id', 2)
+            ->where('zone_id', 1)
+            ->where('status', 1)
+            ->orderBy('rating', 'desc')
+            ->limit(10)
+            ->get();
+        return response()->json([
+            'total_size' => $stores->count(),
+            'stores' => $stores
+        ]);
+    });
+    
+    Route::get('test/categories', function () {
+        $categories = App\Models\Category::where('module_id', 2)
+            ->where('status', 1)
+            ->get();
+        return response()->json($categories);
+    });
 
     Route::group(['middleware'=>['module-check']], function(){
         Route::group(['prefix' => 'customer', 'middleware' => 'auth:api'], function () {

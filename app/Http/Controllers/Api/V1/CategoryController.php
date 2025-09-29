@@ -30,9 +30,7 @@ class CategoryController extends Controller
                 }]);
             }])
             ->where(['position'=>0,'status'=>1])
-            ->when(config('module.current_module_data'), function($query){
-                $query->module(config('module.current_module_data')['id']);
-            })
+            ->where('module_id', 2)
             ->when($featured, function($query){
                 $query->featured();
             })
