@@ -117,15 +117,4 @@ class ParcelCategory extends Model
     {
         return $this->morphMany(Storage::class, 'data');
     }
-    protected static function booted()
-    {
-        static::addGlobalScope('storage', function ($builder) {
-            $builder->with('storage');
-        });
-        static::addGlobalScope('translate', function (Builder $builder) {
-            $builder->with(['translations' => function($query){
-                return $query->where('locale', app()->getLocale());
-            }]);
-        });
-    }
 }

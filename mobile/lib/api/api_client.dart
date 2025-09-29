@@ -52,6 +52,11 @@ class ApiClient extends GetxService {
       // Default to module ID 2 for parcel functionality
       header.addAll({AppConstants.moduleId: '2'});
     }
+    
+    // Force module ID 2 for parcel-related API calls
+    if (setHeader && (header[AppConstants.moduleId] == '1' || header[AppConstants.moduleId] == null)) {
+      header[AppConstants.moduleId] = '2';
+    }
     header.addAll({
       'Content-Type': 'application/json; charset=UTF-8',
       AppConstants.zoneId: zoneIDs != null ? jsonEncode(zoneIDs) : '',
